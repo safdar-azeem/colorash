@@ -6,6 +6,7 @@ import { generateColorCodes } from '../../utils/generateColorCodes'
 interface ColorCodesProps {
    color: string
 }
+
 const ColorCodeList = ({ color }: ColorCodesProps) => {
    const handleCopy = (color: string) => {
       navigator.clipboard.writeText(color)
