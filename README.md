@@ -8,3 +8,4 @@ Create the perfect color palette for your next project with Colorash. Attract yo
 
 -  Please enjoy and don't forget fork and give a star
 -  Don't Forget Follow My Github Account
+
