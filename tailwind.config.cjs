@@ -6,38 +6,9 @@ function rem(px) {
 
 module.exports = {
 	content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+	plugins: [require('daisyui')],
 	theme: {
 		extend: {},
-		colors: {
-			white: 'var(--theme-white)',
-			black: 'var(--theme-black)',
-			gray: {
-				50: 'var(--theme-gray-50)',
-				100: 'var(--theme-gray-100)',
-				200: 'var(--theme-gray-200)',
-				300: 'var(--theme-gray-300)',
-				400: 'var(--theme-gray-400)',
-				500: 'var(--theme-gray-500)',
-				600: 'var(--theme-gray-600)',
-				700: 'var(--theme-gray-700)',
-				800: 'var(--theme-gray-800)',
-				900: 'var(--theme-gray-900)',
-			},
-			customColors: {
-				50: '#F4F6F7',
-				100: '#EEF0F2',
-				200: '#E7EBEF',
-				300: '#a4a5a7',
-				400: '#88898d',
-				500: '#6d6e72',
-				600: '#525358',
-				700: '#3f4146',
-				800: '#2d2f35',
-				900: '#24262c',
-				white: '#FCFCFD',
-				black: '#1b1d23',
-			},
-		},
 		fontSize: {
 			// Base is 16px with 1.125x scaling
 			'nfs-4': rem(8),
@@ -66,10 +37,5 @@ module.exports = {
 			'fs-19': rem(54),
 			'fs-20': rem(56),
 		},
-		fontFamily: {
-			body: ['Roboto', 'sans-serif'],
-			heading: ['Roboto', 'sans-serif'],
-		},
 	},
-	plugins: [],
 }
