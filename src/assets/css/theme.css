@@ -1,0 +1,29 @@
+:root {
+	--theme-white: theme('colors.customColors.white');
+	--theme-black: theme('colors.customColors.black');
+	--theme-gray-50: theme('colors.customColors.50');
+	--theme-gray-100: theme('colors.customColors.100');
+	--theme-gray-200: theme('colors.customColors.200');
+	--theme-gray-300: theme('colors.customColors.300');
+	--theme-gray-400: theme('colors.customColors.400');
+	--theme-gray-500: theme('colors.customColors.500');
+	--theme-gray-600: theme('colors.customColors.600');
+	--theme-gray-700: theme('colors.customColors.700');
+	--theme-gray-800: theme('colors.customColors.800');
+	--theme-gray-900: theme('colors.customColors.900');
+}
+
+.theme-dark {
+	--theme-white: theme('colors.customColors.black');
+	--theme-black: theme('colors.customColors.white');
+	--theme-gray-50: theme('colors.customColors.900');
+	--theme-gray-100: theme('colors.customColors.800');
+	--theme-gray-200: theme('colors.customColors.700');
+	--theme-gray-300: theme('colors.customColors.600');
+	--theme-gray-400: theme('colors.customColors.500');
+	--theme-gray-500: theme('colors.customColors.400');
+	--theme-gray-600: theme('colors.customColors.300');
+	--theme-gray-700: theme('colors.customColors.200');
+	--theme-gray-800: theme('colors.customColors.100');
+	--theme-gray-900: theme('colors.customColors.50');
+}
