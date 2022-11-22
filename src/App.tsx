@@ -1,4 +1,3 @@
-import { Loader } from '@mantine/core'
 import { RouterProvider } from 'react-router-dom'
 import { routes } from './routes'
 
@@ -7,7 +6,7 @@ const App = () => {
 		<>
 			<RouterProvider
 				router={routes}
-				fallbackElement={<Loader />}
+				fallbackElement={<div />}
 			/>
 		</>
 	)
