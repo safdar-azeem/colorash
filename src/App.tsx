@@ -1,4 +1,5 @@
 import { RouterProvider } from 'react-router-dom'
+import FallBackLoader from './components/base/FallBackLoader'
 import { routes } from './routes'
 
 const App = () => {
@@ -6,7 +7,7 @@ const App = () => {
 		<>
 			<RouterProvider
 				router={routes}
-				fallbackElement={<div />}
+				fallbackElement={<FallBackLoader />}
 			/>
 		</>
 	)
