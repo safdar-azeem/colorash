@@ -1,0 +1,15 @@
+.menu :where(li) > :where(*:not(ul)) {
+	@apply py-3;
+}
+
+.dropdown-content {
+	@apply w-[170px];
+}
+
+.menu.navigation a.active {
+	@apply bg-primary-light text-primary-dark font-medium;
+}
+
+.menu.navigation :where(li) > :where(*:not(ul)) {
+	@apply py-4;
+}
