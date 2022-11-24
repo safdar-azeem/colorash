@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import './form';
+@import './icon';
+@import './spinner';
+@import './dropdown';
+
+body {
+	box-sizing: border-box;
+}
