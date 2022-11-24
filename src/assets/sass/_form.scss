@@ -1,0 +1,77 @@
+.input-lg {
+	@apply px-4;
+}
+
+.input:focus,
+.select:focus {
+	@apply outline-[0] border-gray-400;
+}
+
+.btn.btn-lg,
+.input.input-lg,
+.select.select-lg {
+	@apply min-h-[52px] h-[52px];
+}
+
+.btn.btn-xs,
+.input.input-xs,
+.select.select-xs {
+	@apply min-h-[30px] h-[30px] px-3;
+}
+
+.box {
+	@apply rounded-full;
+	&.xs {
+		@apply w-[30px] h-[30px] min-w-[30px] min-h-[30px];
+	}
+	&.sm {
+		@apply w-[36px] h-[36px] min-w-[36px] min-h-[36px];
+	}
+	&.md {
+		@apply w-[45px] h-[45px] min-w-[45px] min-h-[45px];
+	}
+	&.lg {
+		@apply w-[52px] h-[52px] min-w-[52px] min-h-[52px];
+	}
+}
+
+.btn.btn-sm,
+.input.input-sm,
+.select.select-sm {
+	@apply min-h-[36px] h-[36px];
+}
+
+.btn.btn-md,
+.btn,
+.input.input-md,
+.input,
+.select {
+	@apply min-h-[45px] h-[45px];
+}
+
+.btn {
+	&:hover,
+	&.btn-active {
+		--tw-border-opacity: 0.4;
+		--tw-bg-opacity: 0.4;
+	}
+
+	&.btn-outline {
+		--tw-bg-opacity: 0;
+		--tw-border-opacity: 1;
+		@apply border-base-300;
+		&:hover {
+			--tw-border-opacity: 0.3;
+			--tw-bg-opacity: 0.3;
+		}
+	}
+
+	&.btn-ghost {
+		--tw-bg-opacity: 0;
+		--tw-border-opacity: 0;
+	}
+
+	&.btn-lg {
+		@apply text-fs-0;
+	}
+}
