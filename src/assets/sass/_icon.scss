@@ -1,0 +1,19 @@
+.icon {
+	@apply text-fs-0;
+
+	&.xs {
+		@apply text-nfs-1;
+	}
+
+	&.sm {
+		@apply text-fs-1;
+	}
+
+	&.md {
+		@apply text-fs-1;
+	}
+
+	&.lg {
+		@apply text-fs-5;
+	}
+}
