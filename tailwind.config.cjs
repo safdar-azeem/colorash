@@ -7,8 +7,39 @@ function rem(px) {
 module.exports = {
 	content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
 	plugins: [require('daisyui')],
+	daisyui: {
+		darkTheme: 'dark',
+		styled: true,
+		themes: [
+			{
+				mytheme: {
+					primary: '#1F6461',
+					secondary: '#b2fff2',
+					accent: '#d16253',
+					neutral: '#F0F2F4',
+					'base-100': '#FCFCFD',
+					info: '#4C8FE6',
+					success: '#1CCE8D',
+					warning: '#A1860C',
+					error: '#F0477F',
+					'--rounded-btn': rem(6),
+					'--rounded-badge': rem(6),
+					'--rounded-box': rem(6),
+					'"--tab-radius': rem(6),
+					'--border-btn': rem(1),
+					'--tw-border-opacity': 1,
+				},
+			},
+		],
+	},
 	theme: {
-		extend: {},
+		extend: {
+			colors: {
+				'primary-light': '#e4efee',
+				'primary-dark': '#0c5f4f',
+			},
+		},
+
 		fontSize: {
 			// Base is 16px with 1.125x scaling
 			'nfs-4': rem(8),
