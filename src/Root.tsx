@@ -5,7 +5,7 @@ const Root = () => {
 	return (
 		<div className='flex'>
 			<AppSidebar />
-			<div className='pl-[250px] pr-10 pt-4'>
+			<div className='pl-[250px] pr-10 pt-4 w-full min-h-screen'>
 				<Outlet />
 			</div>
 		</div>
