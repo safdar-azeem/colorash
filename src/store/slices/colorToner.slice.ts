@@ -12,10 +12,10 @@ interface IState {
 }
 
 const initialState: IState = {
-	color: '#f3f5f7',
+	color: '#ebeced',
 	format: 'hex',
 	backgroundColor: '#FCFCFD',
-	quantity: 20,
+	quantity: 24,
 	palette: [],
 	mode: 'shades' as ColorMode,
 }
