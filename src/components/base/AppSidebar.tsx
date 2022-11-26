@@ -4,7 +4,7 @@ import NavigationMenu from './navigation/NavigationMenu'
 
 const AppSidebar = () => {
 	return (
-		<aside className='w-[230px] px-3 border border-r-gray-200 min-h-screen flex flex-col py-4 gap-y-8 fixed bg-white left-0 top-0'>
+		<aside className='w-[230px] px-3 border border-r-gray-200 min-h-screen flex flex-col py-4 gap-y-8 fixed  left-0 top-0  bg-base-100'>
 			<header className='px-2'>
 				<Logo />
 			</header>
