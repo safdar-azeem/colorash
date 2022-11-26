@@ -25,7 +25,7 @@ const ColorTonerCard = ({ color }: CardColorProps) => {
 
 	return (
 		<div
-			className='p-2 fadeIn rounded-xl h-[120px] flex items-center gap-x-2 justify-center text-nfs-1'
+			className='p-2 fadeIn -xl h-[135px] flex items-center gap-x-2 justify-center text-nfs-1'
 			style={{ backgroundColor: colorValue }}>
 			<p className={` ${!isLight ? 'text-white' : 'text-black'}`}>{colorValue}</p>
 			<Button
