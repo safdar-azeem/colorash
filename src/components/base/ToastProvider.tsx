@@ -17,7 +17,7 @@ const ToastProvider = () => {
 	}, [toasts])
 
 	return (
-		<div className='bottom-center'>
+		<div className='bottom-center fixed'>
 			{toasts.map((toast: Toast) => (
 				<div key={toast.id}>
 					<ToastWrapper toast={toast} />
