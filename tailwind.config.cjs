@@ -25,7 +25,7 @@ module.exports = {
 					'--rounded-btn': rem(6),
 					'--rounded-badge': rem(6),
 					'--rounded-box': rem(6),
-					'"--tab-radius': rem(6),
+					'--tab-radius': rem(6),
 					'--border-btn': rem(1),
 					'--tw-border-opacity': 1,
 				},
