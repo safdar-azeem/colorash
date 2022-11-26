@@ -1,3 +1,38 @@
+.unstyled-input {
+	@apply appearance-none bg-transparent;
+	&:focus {
+		@apply outline-none;
+	}
+}
+
+input {
+	&[type='number']::-webkit-inner-spin-button,
+	&[type='number']::-webkit-outer-spin-button {
+		opacity: 1;
+		@apply absolute px-1 h-2/3 right-0 top-1/2;
+		top: 50%;
+		transform: translate(-30%, -50%);
+	}
+}
+
+.btn,
+.input,
+.select {
+	@apply font-[400] text-[15px] text-gray-800;
+}
+
+.dropdown {
+	@apply bg-base-100;
+}
+
+.text-error {
+	@apply text-fs-0;
+}
+
+.label {
+	@apply text-nfs-1 font-medium;
+}
+
 .input-lg {
 	@apply px-4;
 }
@@ -46,7 +81,7 @@
 .input.input-md,
 .input,
 .select {
-	@apply min-h-[45px] h-[45px];
+	@apply min-h-[47px] h-[47px];
 }
 
 .btn {
