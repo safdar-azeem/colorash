@@ -6,7 +6,10 @@
 @import './icon';
 @import './spinner';
 @import './dropdown';
+@import './positions';
 
 body {
 	box-sizing: border-box;
+	@apply text-fs-1;
+	font-family: 'Roboto', sans-serif;
 }
