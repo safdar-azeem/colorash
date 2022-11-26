@@ -1,5 +1,11 @@
+.dropdown {
+	.btn {
+		@apply font-normal capitalize;
+	}
+}
+
 .menu :where(li) > :where(*:not(ul)) {
-	@apply py-3;
+	@apply py-3 text-[15px] capitalize;
 }
 
 .dropdown-content {
