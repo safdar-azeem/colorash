@@ -1,10 +1,12 @@
 import { extend } from 'colord'
 import mixPlugin from 'colord/plugins/mix'
+import namesPlugin from 'colord/plugins/names'
 import { RouterProvider } from 'react-router-dom'
 import FallBackLoader from './components/base/FallBackLoader'
 import ToastProvider from './components/base/ToastProvider'
 import { routes } from './routes'
 
+extend([namesPlugin])
 extend([mixPlugin])
 
 const App = () => {
