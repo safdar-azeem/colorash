@@ -3,28 +3,18 @@ import { DropdownOptions } from '../components/base/form/Dropdown'
 const colorFormatOptions: DropdownOptions[] = [
 	{
 		key: '1',
-		label: 'Hex',
-		value: 'hex',
+		label: 'JavaScript',
+		value: 'javascript',
 	},
 	{
 		key: '2',
-		label: 'HSL',
-		value: 'hsl',
+		label: 'CSS',
+		value: 'css',
 	},
 	{
 		key: '3',
-		label: 'HSLA',
-		value: 'hsla',
-	},
-	{
-		key: '4',
-		label: 'RGB',
-		value: 'rgb',
-	},
-	{
-		key: '5',
-		label: 'RGBA',
-		value: 'rgba',
+		label: 'SCSS',
+		value: 'scss',
 	},
 ]
 
