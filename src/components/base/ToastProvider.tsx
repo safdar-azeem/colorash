@@ -30,11 +30,11 @@ const ToastProvider = () => {
 const ToastWrapper = ({ toast }: { toast: Toast }) => {
 	const dispatch = useAppDispatch()
 	return (
-		<div className='bg-primary-light bounceIn text-gray-900 border border-gray-200 rounded-lg text-fs-0 py-3 min-w-[190px] px-3 text-center mb-2 flex justify-between items-center'>
+		<div className='bg-[#303a45] bounceIn text-white border border-gray-800 rounded-lg text-fs-0 py-3 min-w-[190px] px-3 text-center mb-2 flex justify-between gap-2 items-center'>
 			<p className='text-sm'>{toast.message}</p>
 			<Icon
 				icon={'mdi:close'}
-				className='text-gray-500 icon md   cursor-pointer  '
+				className='text-white icon md   cursor-pointer  '
 				onClick={() => dispatch(removeToast(toast.id))}
 			/>
 		</div>
