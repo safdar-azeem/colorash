@@ -17,6 +17,7 @@ const ExportColorModal = () => {
 
 	const generateColorValues = () => {
 		let colors: any = {}
+		const colorName: any = colord(palette[0]).toName({ closest: true })
 		palette
 			.map((color: any) => {
 				const { parsed } = color
@@ -25,8 +26,8 @@ const ExportColorModal = () => {
 				return colord(parsed).toHex()
 			})
 			.map((color: string, index: number) => {
-				if (colorFormat === 'css') return (colors[`--color${index + 1}00`] = color)
-				if (colorFormat === 'scss') return (colors[`$${index + 1}00`] = color)
+				if (colorFormat === 'css') return (colors[`--${colorName + '-' + (index + 1)}00`] = color)
+				if (colorFormat === 'scss') return (colors[`$${colorName + '-' + (index + 1)}00`] = color)
 				return (colors[`${index + 1}00`] = color)
 			})
 
@@ -51,40 +52,45 @@ const ExportColorModal = () => {
 			/>
 			<label
 				htmlFor='export-color-modal'
-				className='modal cursor-pointer'>
+				className='modal zoomIn cursor-pointer'>
 				<label
-					className='modal-box relative min-h-[80vh] min-w-[50vw]'
+					className='modal-box p-0 rounded-t-xl rounded-b-xl relative min-h-[80vh] min-w-[50vw]'
 					htmlFor=''>
-					<header className='flex justify-between items-center '>
-						<h2 className='text-fs-4 font-bold text-gray-900'>Export your theme</h2>
+					<header className='flex p-3 px-5 rounded-t bg-gray-200 justify-between items-center '>
+						<h2 className='text-fs-3 font-bold text-gray-900'>Export your theme</h2>
 						<Button
 							leftIcon='charm:cross'
 							variant='ghost'
 							htmlFor='export-color-modal'
 							isCircle
+							iconSize='text-fs-5'
 						/>
 					</header>
-					<section className='my-4 flex gap-2'>
-						<Button
-							text='Copy All'
-							onClick={handleCopy}
-							leftIcon='material-symbols:content-copy'
-						/>
-						<Dropdown
-							options={colorCodesOptions}
-							value={colorCode}
-							onChange={setColorCode as any}
-						/>
-						<Dropdown
-							options={colorFormatOptions}
-							value={colorFormat}
-							onChange={setColorFormat}
-						/>
-					</section>
-					<main>
+					<main className='px-4 pb-3'>
+						<section className='my-4 flex gap-2'>
+							<Button
+								text='Copy All'
+								onClick={handleCopy}
+								leftIcon='material-symbols:content-copy'
+							/>
+							<Dropdown
+								options={colorCodesOptions}
+								value={colorCode}
+								onChange={setColorCode as any}
+							/>
+							<Dropdown
+								options={colorFormatOptions}
+								value={colorFormat}
+								onChange={setColorFormat}
+							/>
+						</section>
 						<textarea
 							className='input h-full input-bordered w-full'
-							value={colorFormat !== 'javascript' ? colorValue.replace(/"/g, '') : colorValue}
+							value={
+								colorFormat !== 'javascript'
+									? colorValue.replace(/"/g, '').replace(/,/g, ';')
+									: colorValue
+							}
 							style={{ height: 'calc(100vh - 300px)' }}
 							rows={30}
 							onChange={(event) => setColorValue(event.target.value)}
