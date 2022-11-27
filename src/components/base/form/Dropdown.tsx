@@ -53,7 +53,7 @@ const Dropdown = ({
 	button,
 	buttonSize = 'md',
 	minButtonWidth = 140,
-	withIcon,
+	withIcon = true,
 	icon = 'akar-icons:chevron-vertical',
 	iconSize = 'md',
 	iconPosition = 'right',
