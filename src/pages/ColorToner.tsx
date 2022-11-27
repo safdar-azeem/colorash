@@ -5,6 +5,7 @@ import Button from '../components/base/form/Button'
 import Dropdown from '../components/base/form/Dropdown'
 import Input from '../components/base/form/Input'
 import ColorTones from '../components/colorToner/ColorTones'
+import ExportColorModal from '../components/colorToner/ExportColorModal'
 import { useAppDispatch, useAppSelector } from '../hooks/store'
 import colorModeOptions from '../json/colorMode.json'
 import {
@@ -35,6 +36,7 @@ const ColorToner = () => {
 
 	const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { value } = e.target
+		if (parseInt(value) > 100 || parseInt(value) < 2) return
 		dispatch(setQuantity(parseInt(value)))
 	}
 
@@ -43,7 +45,7 @@ const ColorToner = () => {
 
 	useEffect(() => {
 		document.body.style.backgroundColor = backgroundColor
-		document.body.style.color = isLight ? '#000' : '#fff'
+		document.body.style.color = isLight || backgroundColor === 'transparent' ? '#000' : '#fff'
 
 		return () => {
 			document.body.style.backgroundColor = ''
@@ -102,11 +104,18 @@ const ColorToner = () => {
 					label='Quantity'
 					value={quantity}
 					min={2}
+					max={100}
 					className='w-[100px]'
 					onChange={handleQuantityChange}
 				/>
+				<Button
+					leftIcon='charm:download'
+					label='Export'
+					htmlFor='export-color-modal'
+				/>
 			</div>
 			<ColorTones />
+			<ExportColorModal />
 		</div>
 	)
 }
