@@ -18,6 +18,7 @@ interface ButtonProps {
 	label?: string
 	onClick?: () => void
 	iconColor?: string
+	htmlFor?: string
 }
 
 const Button = ({
@@ -37,11 +38,13 @@ const Button = ({
 	onClick,
 	color,
 	iconColor,
+	htmlFor,
 }: ButtonProps) => {
 	return (
 		<div>
 			{label && <label className='label'>{label}</label>}
-			<button
+			<label
+				htmlFor={htmlFor}
 				onClick={onClick}
 				style={{ color: color }}
 				className={`btn gap-2
@@ -63,7 +66,7 @@ const Button = ({
 						className={`${iconSize || 'icon ' + size} ${iconColor} `}
 					/>
 				)}
-			</button>
+			</label>
 		</div>
 	)
 }
