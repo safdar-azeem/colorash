@@ -2,8 +2,8 @@
 
 /// Top Position
 .top-left {
-	top: 2%;
-	left: 2%;
+	top: 1%;
+	left: 1%;
 	z-index: 1000;
 	transform: translate(0%, 0%);
 	-webkit-transform: translate(0%, 0%);
@@ -13,7 +13,7 @@
 }
 
 .top-center {
-	top: 2%;
+	top: 1%;
 	left: 50%;
 	z-index: 1000;
 	transform: translate(-50%, 0%);
@@ -24,8 +24,8 @@
 }
 
 .top-right {
-	top: 2%;
-	right: 2%;
+	top: 1%;
+	right: 1%;
 	z-index: 1000;
 	transform: translate(0%, 0%);
 	-webkit-transform: translate(0%, 0%);
@@ -36,9 +36,9 @@
 
 ///// Bottom Position
 .bottom-left {
-	bottom: 2%;
+	bottom: 1%;
 	z-index: 1000;
-	left: 2%;
+	left: 1%;
 	z-index: 1000;
 	transform: translate(0%, 0%);
 	-webkit-transform: translate(0%, 0%);
@@ -48,7 +48,7 @@
 }
 
 .bottom-center {
-	bottom: 2%;
+	bottom: 1%;
 	left: 50%;
 	z-index: 1000;
 	transform: translate(-50%, 0%);
@@ -59,8 +59,8 @@
 }
 
 .bottom-right {
-	bottom: 2%;
-	right: 2%;
+	bottom: 1%;
+	right: 1%;
 	z-index: 1000;
 	transform: translate(0%, 0%);
 	-webkit-transform: translate(0%, 0%);
@@ -73,7 +73,7 @@
 
 .center-left {
 	top: 50%;
-	left: 2%;
+	left: 1%;
 	z-index: 1000;
 	z-index: 1000;
 	transform: translate(0%, -50%);
@@ -97,7 +97,7 @@
 
 .center-right {
 	top: 50%;
-	right: 2%;
+	right: 1%;
 	z-index: 1000;
 	transform: translate(0%, -50%);
 	-webkit-transform: translate(0%, -50%);
