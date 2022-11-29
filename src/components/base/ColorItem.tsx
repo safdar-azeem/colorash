@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useAppDispatch } from '../../hooks/store'
 import { addToast } from '../../store/slices/toast.slice'
 import { TRadius } from '../../types/tailwind.types'
+import { generateColorCodes } from '../../utils/generateColorCodes'
 import ColorPicker from './color-picker/ColorPicker'
 import Button from './form/Button'
 import Dropdown from './form/Dropdown'
@@ -28,12 +29,7 @@ const ColorItem = ({ color, radius }: ColorItemProps) => {
 	}
 
 	const colorCodes = useMemo((): string[] => {
-		const hex = colord(colorValue).toHex()
-		const rgb = colord(colorValue).toRgbString()
-		const hsl = colord(colorValue).toHslString()
-		const hsv = colord(colorValue).toHsv()
-		const name = colord(colorValue).toName({ closest: true }) || 'N/A'
-		return [hex, rgb, hsl, `hsv(${hsv.h}, ${hsv.s}%, ${hsv.v}%)`, name]
+		return generateColorCodes(colorValue)
 	}, [colorValue])
 
 	const isColorLight = useMemo(() => colord(colorValue).isLight(), [colorValue])
