@@ -15,7 +15,7 @@ interface DropdownProps {
 	placeholder?: string
 	label?: string
 	dropDownwidth?: number | string
-	children?: React.ReactNode
+	children?: React.ReactNode | JSX.Element
 	button?: React.ReactNode
 	minButtonWidth?: number | string
 	buttonSize?: TSize
@@ -41,6 +41,7 @@ interface DropdownProps {
 	search?: boolean
 	isScrollable?: boolean
 	tabIndex?: number
+	setIsDropdownOpen?: (value: boolean) => void
 }
 
 const Dropdown = ({
@@ -74,16 +75,20 @@ const Dropdown = ({
 	search = false,
 	isScrollable = true,
 	tabIndex = 0,
+	setIsDropdownOpen,
 }: DropdownProps) => {
 	const popover = useRef(null)
 	const [isOpen, toggle] = useState(false)
 
-	const close = useCallback(() => toggle(false), [])
+	const close = useCallback(() => {
+		toggle(false)
+		setIsDropdownOpen && setIsDropdownOpen(false)
+	}, [])
 	const handleToggle = () => {
-		console.log('handleToggle')
+		setIsDropdownOpen && setIsDropdownOpen(!isOpen)
 		toggle(!isOpen)
 	}
-	console.log('isOpen', isOpen)
+
 	useClickOutside(popover, close)
 
 	const [searchValue, setSearchValue] = React.useState('')
@@ -111,11 +116,12 @@ const Dropdown = ({
 		<div>
 			{label && <label className='label'>{label}</label>}
 			<div
-				className={`dropdown rounded-md dropdown-${directionY} dropdown-${directionX} ${
+				className={`dropdown  rounded-md dropdown-${directionY} dropdown-${directionX} ${
 					hover && 'dropdown-hover'
 				} dropdown-open `}
 				style={{
 					width: dropDownwidth,
+					backgroundColor: 'transparent',
 				}}>
 				{button ? (
 					<span onClick={handleToggle}>{button}</span>
