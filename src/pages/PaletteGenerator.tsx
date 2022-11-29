@@ -47,7 +47,7 @@ const PaletteGenerator = () => {
 								key={index}
 								color={color}
 								size='xs'
-								handleChange={(color) => handleColorChange(color, index)}
+								onChange={(color) => handleColorChange(color, index)}
 							/>
 						))}
 						<Button
