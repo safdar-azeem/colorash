@@ -18,11 +18,11 @@ const ColorList = ({
 }: ColorListProps) => {
 	return (
 		<div
-			className={`grid grid-cols-6 mt-10 rounded-${parentRadius} overflow-hidden`}
+			className={`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 mt-10 rounded-${parentRadius}`}
 			style={{ gridRowGap: rowGap, gridColumnGap: colGap }}>
-			{colorsPalette.map((color, index) => (
+			{colorsPalette.map((color) => (
 				<ColorItem
-					key={index}
+					key={color}
 					color={color}
 					radius={childRadius}
 				/>
