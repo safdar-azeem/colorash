@@ -10,10 +10,14 @@
 	}
 
 	&.md {
-		@apply text-fs-1;
+		@apply text-fs-2;
 	}
 
 	&.lg {
 		@apply text-fs-5;
+	}
+
+	&.xl {
+		@apply text-fs-10;
 	}
 }
