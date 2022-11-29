@@ -23,8 +23,8 @@ const ColorItem = ({ color, radius }: ColorItemProps) => {
 	const [selectedColorCode, setSelectedColorCode] = useState('')
 	const [colorValue, setColorValue] = useState(color)
 
-	const copyToClipboard = (value?: string) => {
-		navigator.clipboard.writeText(value || colorValue)
+	const copyToClipboard = (value: string) => {
+		navigator.clipboard.writeText(value)
 		dispatch(addToast(`${value || colorValue} copied to clipboard`))
 	}
 
@@ -76,7 +76,7 @@ const ColorItem = ({ color, radius }: ColorItemProps) => {
 					variant='ghost'
 					iconColor={`text-${isColorLight ? 'black' : 'white'}`}
 					rightIcon='material-symbols:content-copy'
-					onClick={copyToClipboard}
+					onClick={() => copyToClipboard(colorValue)}
 					iconSize='text-fs-5'
 				/>
 				<Dropdown
