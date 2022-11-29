@@ -8,6 +8,7 @@ const PaletteGenerator = lazy(() => import('../pages/PaletteGenerator'))
 const ColorToner = lazy(() => import('../pages/ColorToner'))
 const SolidColors = lazy(() => import('../pages/SolidColors'))
 const ColorConverter = lazy(() => import('../pages/ColorConverter'))
+const ContrastChecker = lazy(() => import('../pages//ContrastChecker'))
 
 export const routes = createBrowserRouter([
 	{
@@ -29,6 +30,10 @@ export const routes = createBrowserRouter([
 			{
 				path: AppRoutes.ColorConverter,
 				element: <ColorConverter />,
+			},
+			{
+				path: AppRoutes.ContrastChecker,
+				element: <ContrastChecker />,
 			},
 		],
 	},
