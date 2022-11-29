@@ -11,7 +11,7 @@ import { ColorMode } from '../types/color.type'
 
 const ColorToner = () => {
 	const [color, setColor] = useState<string>('#f2f3f4')
-	const [bgColor, setBgColor] = useState('#fff')
+	const [bgColor, setBgColor] = useState('#FCFCFD')
 	const [quantity, setQuantity] = useState(24)
 	const [colorMode, setColorMode] = useState<ColorMode>('shades')
 

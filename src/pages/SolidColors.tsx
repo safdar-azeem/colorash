@@ -7,7 +7,7 @@ import { generateRandomColor } from '../utils/generateRandomColor'
 
 const ColorToner = () => {
 	const [colorsPalette, setColorsPalette] = useState<any[]>(generateRandomColor(50, []))
-	const [bgColor, setBgColor] = useState('#fff')
+	const [bgColor, setBgColor] = useState('#FCFCFD')
 
 	const handleBgColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { value } = e.target
