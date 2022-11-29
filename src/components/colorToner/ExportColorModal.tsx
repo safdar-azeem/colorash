@@ -45,7 +45,7 @@ const ExportColorModal = ({ colorsPalette }: ExportColorModalProps) => {
 
 	useEffect(() => {
 		generateColorValues()
-	}, [colorFormat, colorCode, palette])
+	}, [colorsPalette, colorFormat, colorCode, palette])
 
 	return (
 		<div>
