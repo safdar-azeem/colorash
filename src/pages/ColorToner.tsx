@@ -6,19 +6,10 @@ import Button from '../components/base/form/Button'
 import Dropdown from '../components/base/form/Dropdown'
 import Input from '../components/base/form/Input'
 import ExportColorModal from '../components/colorToner/ExportColorModal'
-import { useAppDispatch, useAppSelector } from '../hooks/store'
 import colorModeOptions from '../json/colorMode.json'
-import {
-	setBackgroundColor,
-	setColor,
-	setMode,
-	setPalette,
-	setQuantity,
-} from '../store/slices/colorToner.slice'
 import { ColorMode } from '../types/color.type'
 
 const ColorToner = () => {
-	const dispatch = useAppDispatch()
 	const [color, setColor] = useState<string>('#f2f3f4')
 	const [bgColor, setBgColor] = useState('#fff')
 	const [quantity, setQuantity] = useState(24)
@@ -64,6 +55,8 @@ const ColorToner = () => {
 		return baseColor.tones(quantity)
 	}, [color, quantity, colorMode])
 
+	console.log('colorsPalette', colorsPalette)
+
 	return (
 		<div>
 			<div className='mb-10 flex gap-x-4'>
@@ -75,7 +68,11 @@ const ColorToner = () => {
 					leftSlot={
 						<ColorPicker
 							color={bgColor}
-							handleChange={(color) => dispatch(setBackgroundColor(color))}
+							value
+							saturation
+							box
+							hue
+							onChange={(color) => setBgColor(color)}
 							size='xs'
 						/>
 					}
@@ -88,7 +85,11 @@ const ColorToner = () => {
 					leftSlot={
 						<ColorPicker
 							color={color}
-							handleChange={(color) => setColor(color)}
+							value
+							saturation
+							box
+							hue
+							onChange={(color) => setColor(color)}
 							size='xs'
 						/>
 					}
