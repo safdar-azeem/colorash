@@ -8,7 +8,11 @@ import { ColorFormat } from '../../types/color.type'
 import Button from '../base/form/Button'
 import Dropdown from '../base/form/Dropdown'
 
-const ExportColorModal = () => {
+interface ExportColorModalProps {
+	colorsPalette: string[]
+}
+
+const ExportColorModal = ({ colorsPalette }: ExportColorModalProps) => {
 	const [colorFormat, setColorFormat] = useState(colorFormatOptions[0].value)
 	const [colorCode, setColorCode] = useState<ColorFormat>(colorCodesOptions[0].value as ColorFormat)
 	const { palette } = useAppSelector((state) => state.colorToner)
@@ -18,7 +22,7 @@ const ExportColorModal = () => {
 	const generateColorValues = () => {
 		let colors: any = {}
 		const colorName: any = colord(palette[0]).toName({ closest: true })
-		palette
+		colorsPalette
 			.map((color: any) => {
 				const { parsed } = color
 				if (colorCode === 'rgb') return colord(parsed).toRgbString()
