@@ -16,18 +16,11 @@ interface ColorItemProps {
 const ColorItem = ({ color, radius }: ColorItemProps) => {
 	const dispatch = useAppDispatch()
 
-	const parsedColor = useMemo(() => {
-		const isObj = typeof color === 'object'
-		let colorValue = isObj ? color.parsed : color
-		return colord(colorValue).toHex()
-	}, [color])
-
-	const [colorValue, setColorValue] = useState(parsedColor)
-	const [selectedColorCode, setSelectedColorCode] = useState('')
-	const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 	const [isHover, setIsHover] = useState(false)
-
-	const isColorLight = useMemo(() => colord(colorValue).isLight(), [colorValue])
+	const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+	const [isColorPickerOpen, setIsColorPickerOpen] = useState(false)
+	const [selectedColorCode, setSelectedColorCode] = useState('')
+	const [colorValue, setColorValue] = useState(color)
 
 	const copyToClipboard = (value?: string) => {
 		navigator.clipboard.writeText(value || colorValue)
@@ -43,16 +36,23 @@ const ColorItem = ({ color, radius }: ColorItemProps) => {
 		return [hex, rgb, hsl, `hsv(${hsv.h}, ${hsv.s}%, ${hsv.v}%)`, name]
 	}, [colorValue])
 
+	const isColorLight = useMemo(() => colord(colorValue).isLight(), [colorValue])
+
 	useEffect(() => {
 		selectedColorCode && copyToClipboard(selectedColorCode)
 	}, [selectedColorCode])
+
+	useEffect(() => {
+		const isObj = typeof color === 'object'
+		setColorValue(colord(isObj ? color.parsed : color).toHex())
+	}, [color])
 
 	return (
 		<div
 			className={`rounded-${radius} p-2 fadeIn h-[125px] text-nfs-1}`}
 			style={{
 				backgroundColor: colorValue,
-				zIndex: isDropdownOpen ? 10 : 0,
+				zIndex: isDropdownOpen || isColorPickerOpen ? 2 : 0,
 			}}
 			onMouseEnter={() => setIsHover(true)}
 			onMouseLeave={() => setIsHover(false)}>
@@ -64,8 +64,9 @@ const ColorItem = ({ color, radius }: ColorItemProps) => {
 					color={colorValue}
 					value
 					saturation
+					onClose={() => setIsColorPickerOpen(false)}
+					onOpen={() => setIsColorPickerOpen(true)}
 					onChange={(color) => setColorValue(color)}
-					setIsDropdownOpen={setIsDropdownOpen}
 					button={
 						<Icon
 							icon='codicon:color-mode'
@@ -83,6 +84,8 @@ const ColorItem = ({ color, radius }: ColorItemProps) => {
 					iconSize='text-fs-5'
 				/>
 				<Dropdown
+					onClose={() => setIsDropdownOpen(false)}
+					onOpen={() => setIsDropdownOpen(true)}
 					children={
 						<ColorCodes
 							colorCodes={colorCodes}
