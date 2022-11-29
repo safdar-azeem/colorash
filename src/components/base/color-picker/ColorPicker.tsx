@@ -14,7 +14,8 @@ interface ColorPickerProps {
 	value?: boolean
 	alpha?: boolean
 	onChange?: (color: string) => void
-	setIsDropdownOpen?: (isOpen: boolean) => void
+	onClose?: () => void
+	onOpen?: () => void
 	button?: JSX.Element
 }
 
@@ -29,7 +30,8 @@ const ColorPicker = ({
 	value,
 	alpha,
 	button,
-	setIsDropdownOpen,
+	onClose,
+	onOpen,
 }: ColorPickerProps) => {
 	const ref = useRef(null)
 	var colorPicker = useRef(null)
@@ -101,8 +103,9 @@ const ColorPicker = ({
 
 	return (
 		<Dropdown
+			onClose={onClose}
+			onOpen={onOpen}
 			tabIndex={0}
-			setIsDropdownOpen={setIsDropdownOpen}
 			button={
 				button ? (
 					<label onClick={() => setIsOpen(!isOpen)}>{button}</label>
@@ -110,10 +113,7 @@ const ColorPicker = ({
 					<button
 						className={`btn px-0 mt-1 box ${size} rounded-${rounded} `}
 						style={{ backgroundColor: color }}
-						onClick={() => {
-							setIsOpen(!isOpen)
-							setIsDropdownOpen && setIsDropdownOpen(true)
-						}}></button>
+						onClick={() => setIsOpen(!isOpen)}></button>
 				)
 			}
 			children={

@@ -42,6 +42,8 @@ interface DropdownProps {
 	isScrollable?: boolean
 	tabIndex?: number
 	setIsDropdownOpen?: (value: boolean) => void
+	onOpen?: () => void
+	onClose?: () => void
 }
 
 const Dropdown = ({
@@ -75,6 +77,8 @@ const Dropdown = ({
 	search = false,
 	isScrollable = true,
 	tabIndex = 0,
+	onOpen,
+	onClose,
 	setIsDropdownOpen,
 }: DropdownProps) => {
 	const popover = useRef(null)
@@ -82,10 +86,11 @@ const Dropdown = ({
 
 	const close = useCallback(() => {
 		toggle(false)
-		setIsDropdownOpen && setIsDropdownOpen(false)
+		onClose && onClose()
 	}, [])
+
 	const handleToggle = () => {
-		setIsDropdownOpen && setIsDropdownOpen(!isOpen)
+		onOpen && onOpen()
 		toggle(!isOpen)
 	}
 
