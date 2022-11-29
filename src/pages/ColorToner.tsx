@@ -1,10 +1,10 @@
 import { colord, random } from 'colord'
-import { useEffect } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import ColorPicker from '../components/base/color-picker/ColorPicker'
+import ColorList from '../components/base/ColorList'
 import Button from '../components/base/form/Button'
 import Dropdown from '../components/base/form/Dropdown'
 import Input from '../components/base/form/Input'
-import ColorTones from '../components/colorToner/ColorTones'
 import ExportColorModal from '../components/colorToner/ExportColorModal'
 import { useAppDispatch, useAppSelector } from '../hooks/store'
 import colorModeOptions from '../json/colorMode.json'
@@ -12,58 +12,69 @@ import {
 	setBackgroundColor,
 	setColor,
 	setMode,
+	setPalette,
 	setQuantity,
 } from '../store/slices/colorToner.slice'
 import { ColorMode } from '../types/color.type'
 
 const ColorToner = () => {
 	const dispatch = useAppDispatch()
-	const { color, backgroundColor, mode, quantity } = useAppSelector((state) => state.colorToner)
+	const [color, setColor] = useState<string>('#f2f3f4')
+	const [bgColor, setBgColor] = useState('#fff')
+	const [quantity, setQuantity] = useState(24)
+	const [colorMode, setColorMode] = useState<ColorMode>('shades')
 
 	const handleBgColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { value } = e.target
-		dispatch(setBackgroundColor(value))
+		setBgColor(value)
 	}
 
 	const handleColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { value } = e.target
-		dispatch(setColor(value))
+		setColor(value)
 	}
 
 	const handleDropdownChange = (value: string) => {
-		dispatch(setMode(value as ColorMode))
+		setColorMode(value as ColorMode)
 	}
 
 	const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { value } = e.target
 		if (parseInt(value) > 100 || parseInt(value) < 2) return
-		dispatch(setQuantity(parseInt(value)))
+		setQuantity(parseInt(value))
 	}
 
-	const handleRandom = () => dispatch(setColor(random().toHex()))
-	const isLight = colord(backgroundColor).isLight()
+	const handleRandom = () => setColor(random().toHex())
+	const isLight = colord(bgColor).isLight()
 
 	useEffect(() => {
-		document.body.style.backgroundColor = backgroundColor
-		document.body.style.color = isLight || backgroundColor === 'transparent' ? '#000' : '#fff'
+		document.body.style.backgroundColor = bgColor
+		document.body.style.color = isLight || bgColor === 'transparent' ? '#000' : '#fff'
 
 		return () => {
 			document.body.style.backgroundColor = ''
 			document.body.style.color = ''
 		}
-	}, [backgroundColor])
+	}, [bgColor])
+
+	const colorsPalette: any[] = useMemo(() => {
+		const baseColor = colord(color)
+		if (colorMode === 'tints') return baseColor.tints(quantity)
+		if (colorMode === 'shades') return baseColor.shades(quantity)
+		return baseColor.tones(quantity)
+	}, [color, quantity, colorMode])
 
 	return (
 		<div>
 			<div className='mb-10 flex gap-x-4'>
 				<Input
 					label='Background'
-					value={backgroundColor}
+					value={bgColor}
 					className='w-[170px]'
 					onChange={handleBgColorChange}
 					leftSlot={
 						<ColorPicker
-							color={backgroundColor}
+							color={bgColor}
 							handleChange={(color) => dispatch(setBackgroundColor(color))}
 							size='xs'
 						/>
@@ -77,7 +88,7 @@ const ColorToner = () => {
 					leftSlot={
 						<ColorPicker
 							color={color}
-							handleChange={(color) => dispatch(setColor(color))}
+							handleChange={(color) => setColor(color)}
 							size='xs'
 						/>
 					}
@@ -95,7 +106,7 @@ const ColorToner = () => {
 					withIcon
 					variant='outline'
 					options={colorModeOptions}
-					value={mode}
+					value={colorMode}
 					onChange={handleDropdownChange}
 					minButtonWidth={170}
 				/>
@@ -114,8 +125,8 @@ const ColorToner = () => {
 					htmlFor='export-color-modal'
 				/>
 			</div>
-			<ColorTones />
-			<ExportColorModal />
+			<ColorList colorsPalette={colorsPalette} />
+			<ExportColorModal colorsPalette={colorsPalette} />
 		</div>
 	)
 }
