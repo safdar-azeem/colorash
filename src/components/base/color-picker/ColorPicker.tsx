@@ -8,21 +8,81 @@ interface ColorPickerProps {
 	color: string
 	rounded?: TRadius
 	size?: TSize
-	handleChange?: (color: string) => void
+	box?: boolean
+	hue?: boolean
+	saturation?: boolean
+	value?: boolean
+	alpha?: boolean
+	onChange?: (color: string) => void
+	setIsDropdownOpen?: (isOpen: boolean) => void
+	button?: JSX.Element
 }
 
-const ColorPicker = ({ color, handleChange, rounded = 'full', size = 'md' }: ColorPickerProps) => {
+const ColorPicker = ({
+	color,
+	onChange,
+	rounded = 'full',
+	size = 'xs',
+	box,
+	hue,
+	saturation,
+	value,
+	alpha,
+	button,
+	setIsDropdownOpen,
+}: ColorPickerProps) => {
 	const ref = useRef(null)
 	var colorPicker = useRef(null)
 	const [isOpen, setIsOpen] = useState(false)
 	const [colorValue, setColorValue] = useState(color || '#e5efee')
 
 	useMemo(() => {
-		handleChange && handleChange(colorValue)
+		onChange && onChange(colorValue)
 	}, [colorValue])
 
 	useEffect(() => {
 		if (!ref.current) return
+		let layoutOptions = []
+		if (box) {
+			layoutOptions.push({
+				component: iro.ui.Box,
+			})
+		}
+		if (hue) {
+			layoutOptions.push({
+				component: iro.ui.Slider,
+				options: {
+					sliderType: 'hue',
+				},
+			})
+		}
+
+		if (saturation) {
+			layoutOptions.push({
+				component: iro.ui.Slider,
+				options: {
+					sliderType: 'saturation',
+				},
+			})
+		}
+
+		if (value) {
+			layoutOptions.push({
+				component: iro.ui.Slider,
+				options: {
+					sliderType: 'value',
+				},
+			})
+		}
+
+		if (alpha) {
+			layoutOptions.push({
+				component: iro.ui.Slider,
+				options: {
+					sliderType: 'alpha',
+				},
+			})
+		}
 		// @ts-ignore
 		const cp = (colorPicker.current = new iro.ColorPicker(ref.current, {
 			width: 180,
@@ -30,35 +90,7 @@ const ColorPicker = ({ color, handleChange, rounded = 'full', size = 'md' }: Col
 			margin: 8,
 			boxHeight: 140,
 			sliderSize: 16,
-			layout: [
-				{
-					component: iro.ui.Box,
-				},
-				{
-					component: iro.ui.Slider,
-					options: {
-						sliderType: 'hue',
-					},
-				},
-				{
-					component: iro.ui.Slider,
-					options: {
-						sliderType: 'saturation',
-					},
-				},
-				{
-					component: iro.ui.Slider,
-					options: {
-						sliderType: 'value',
-					},
-				},
-				{
-					component: iro.ui.Slider,
-					options: {
-						sliderType: 'alpha',
-					},
-				},
-			],
+			layout: layoutOptions,
 		}))
 		cp.on('color:change', (color: any) => {
 			const colorFormat = color.$.a !== 1 ? 'hsla' : 'hex'
@@ -70,11 +102,19 @@ const ColorPicker = ({ color, handleChange, rounded = 'full', size = 'md' }: Col
 	return (
 		<Dropdown
 			tabIndex={0}
+			setIsDropdownOpen={setIsDropdownOpen}
 			button={
-				<button
-					className={`btn px-0 mt-1 box ${size} rounded-${rounded} `}
-					style={{ backgroundColor: color }}
-					onClick={() => setIsOpen(!isOpen)}></button>
+				button ? (
+					<label onClick={() => setIsOpen(!isOpen)}>{button}</label>
+				) : (
+					<button
+						className={`btn px-0 mt-1 box ${size} rounded-${rounded} `}
+						style={{ backgroundColor: color }}
+						onClick={() => {
+							setIsOpen(!isOpen)
+							setIsDropdownOpen && setIsDropdownOpen(true)
+						}}></button>
+				)
 			}
 			children={
 				<div className='shadow-lg p-3 border border-gray-100 bg-white w-max rounded-xl mt-2'>
