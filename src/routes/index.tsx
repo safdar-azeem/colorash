@@ -7,6 +7,7 @@ const Home = lazy(() => import('../pages/Home'))
 const PaletteGenerator = lazy(() => import('../pages/PaletteGenerator'))
 const ColorToner = lazy(() => import('../pages/ColorToner'))
 const SolidColors = lazy(() => import('../pages/SolidColors'))
+const ColorConverter = lazy(() => import('../pages/ColorConverter'))
 
 export const routes = createBrowserRouter([
 	{
@@ -24,6 +25,10 @@ export const routes = createBrowserRouter([
 			{
 				path: AppRoutes.SolidColors,
 				element: <SolidColors />,
+			},
+			{
+				path: AppRoutes.ColorConverter,
+				element: <ColorConverter />,
 			},
 		],
 	},
