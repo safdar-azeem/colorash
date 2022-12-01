@@ -12,11 +12,15 @@ const ContrastChecker = lazy(() => import('../pages//ContrastChecker'))
 
 export const routes = createBrowserRouter([
 	{
+		path: AppRoutes.Home,
+		element: <Home />,
+	},
+	{
 		path: '/',
 		element: <Root />,
 		children: [
 			{
-				path: AppRoutes.Home,
+				path: AppRoutes.PaletteGenerator,
 				element: <PaletteGenerator />,
 			},
 			{
