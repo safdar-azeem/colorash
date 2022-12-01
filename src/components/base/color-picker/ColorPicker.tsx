@@ -17,6 +17,7 @@ interface ColorPickerProps {
 	onClose?: () => void
 	onOpen?: () => void
 	button?: JSX.Element
+	direction?: 'left' | 'end' | 'none'
 }
 
 const ColorPicker = ({
@@ -24,6 +25,7 @@ const ColorPicker = ({
 	onChange,
 	rounded = 'full',
 	size = 'xs',
+	direction = 'end',
 	box,
 	hue,
 	saturation,
@@ -126,7 +128,7 @@ const ColorPicker = ({
 				</div>
 			}
 			directionY='bottom'
-			directionX='none'
+			directionX={direction}
 		/>
 	)
 }
