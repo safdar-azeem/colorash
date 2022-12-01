@@ -1,4 +1,4 @@
-import { AnyColor, Colord, colord, random } from 'colord'
+import { colord, random } from 'colord'
 
 export const generateRandomColor = (quantity: number, prevColors?: string[]): string[] => {
 	const colors: string[] = []
