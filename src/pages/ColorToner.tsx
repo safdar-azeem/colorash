@@ -5,6 +5,9 @@ import ColorList from '../components/base/ColorList'
 import Button from '../components/base/form/Button'
 import Dropdown from '../components/base/form/Dropdown'
 import Input from '../components/base/form/Input'
+import AppBody from '../layout/AppBody'
+import AppContent from '../layout/AppContent'
+import InputGroup from '../layout/InputGroup'
 import ExportColorModal from '../components/colorToner/ExportColorModal'
 import colorModeOptions from '../json/colorMode.json'
 import { ColorMode } from '../types/color.type'
@@ -36,12 +39,12 @@ const ColorToner = () => {
 	}
 
 	const handleRandom = () => setColor(random().toHex())
+
 	const isLight = colord(bgColor).isLight()
 
 	useEffect(() => {
 		document.body.style.backgroundColor = bgColor
 		document.body.style.color = isLight || bgColor === 'transparent' ? '#000' : '#fff'
-
 		return () => {
 			document.body.style.backgroundColor = ''
 			document.body.style.color = ''
@@ -55,15 +58,12 @@ const ColorToner = () => {
 		return baseColor.tones(quantity)
 	}, [color, quantity, colorMode])
 
-	console.log('colorsPalette', colorsPalette)
-
 	return (
-		<div>
-			<div className='mb-10 flex gap-x-4'>
+		<>
+			<InputGroup minWidth={185}>
 				<Input
 					label='Background'
 					value={bgColor}
-					className='w-[170px]'
 					onChange={handleBgColorChange}
 					leftSlot={
 						<ColorPicker
@@ -74,13 +74,13 @@ const ColorToner = () => {
 							hue
 							onChange={(color) => setBgColor(color)}
 							size='xs'
+							direction='none'
 						/>
 					}
 				/>
 				<Input
 					label='Colour'
 					value={color}
-					className='w-[270px]'
 					onChange={handleColorChange}
 					leftSlot={
 						<ColorPicker
@@ -91,6 +91,7 @@ const ColorToner = () => {
 							hue
 							onChange={(color) => setColor(color)}
 							size='xs'
+							direction='none'
 						/>
 					}
 					rightSlot={
@@ -109,7 +110,7 @@ const ColorToner = () => {
 					options={colorModeOptions}
 					value={colorMode}
 					onChange={handleDropdownChange}
-					minButtonWidth={170}
+					minButtonWidth='100%'
 				/>
 				<Input
 					type='number'
@@ -117,7 +118,6 @@ const ColorToner = () => {
 					value={quantity}
 					min={2}
 					max={100}
-					className='w-[100px]'
 					onChange={handleQuantityChange}
 				/>
 				<Button
@@ -125,10 +125,12 @@ const ColorToner = () => {
 					label='Export'
 					htmlFor='export-color-modal'
 				/>
-			</div>
-			<ColorList colorsPalette={colorsPalette} />
-			<ExportColorModal colorsPalette={colorsPalette} />
-		</div>
+			</InputGroup>
+			<AppContent>
+				<ColorList colorsPalette={colorsPalette} />
+				<ExportColorModal colorsPalette={colorsPalette} />
+			</AppContent>
+		</>
 	)
 }
 

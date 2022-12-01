@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react'
 import ColorPicker from '../components/base/color-picker/ColorPicker'
 import ColorList from '../components/base/ColorList'
 import Input from '../components/base/form/Input'
+import AppContent from '../layout/AppContent'
+import InputGroup from '../layout/InputGroup'
 import { generateRandomColor } from '../utils/generateRandomColor'
 
 const ColorToner = () => {
@@ -14,23 +16,22 @@ const ColorToner = () => {
 		setBgColor(value)
 	}
 
+	const infiniteScroll = () => {
+		const { scrollHeight, scrollTop, clientHeight } = document.documentElement
+		if (scrollTop + clientHeight >= scrollHeight)
+			setColorsPalette((prev) => [...prev, ...generateRandomColor(30, prev)])
+	}
+
 	const isLight = colord(bgColor).isLight()
 
 	useEffect(() => {
 		document.body.style.backgroundColor = bgColor
-		document.body.style.color = isLight || bgColor === 'transparent' ? '#000' : '#fff'
+		document.body.style.color = isLight ? '#000' : '#fff'
 		return () => {
 			document.body.style.backgroundColor = ''
 			document.body.style.color = ''
 		}
 	}, [bgColor])
-
-	const infiniteScroll = () => {
-		const { scrollHeight, scrollTop, clientHeight } = document.documentElement
-		if (scrollTop + clientHeight >= scrollHeight) {
-			setColorsPalette((prev) => [...prev, ...generateRandomColor(30, prev)])
-		}
-	}
 
 	useEffect(() => {
 		window.addEventListener('scroll', infiniteScroll)
@@ -38,14 +39,13 @@ const ColorToner = () => {
 	}, [])
 
 	return (
-		<div>
-			<div className='mb-10 flex gap-x-4'>
+		<>
+			<InputGroup>
 				<Input
 					label='Background'
 					value={bgColor}
-					className='w-[170px]'
 					onChange={handleBgColorChange}
-					leftSlot={
+					rightSlot={
 						<ColorPicker
 							color={bgColor}
 							box
@@ -57,15 +57,17 @@ const ColorToner = () => {
 						/>
 					}
 				/>
-			</div>
-			<ColorList
-				rowGap={16}
-				colGap={16}
-				parentRadius='none'
-				childRadius='lg'
-				colorsPalette={colorsPalette}
-			/>
-		</div>
+			</InputGroup>
+			<AppContent>
+				<ColorList
+					rowGap={16}
+					colGap={16}
+					parentRadius='none'
+					childRadius='lg'
+					colorsPalette={colorsPalette}
+				/>
+			</AppContent>
+		</>
 	)
 }
 
