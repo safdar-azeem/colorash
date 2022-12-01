@@ -3,12 +3,12 @@ import { createBrowserRouter } from 'react-router-dom'
 import { AppRoutes } from '../Constants/routes.constants'
 
 const Root = lazy(() => import('../Root'))
-const Home = lazy(() => import('../pages/Home'))
-const PaletteGenerator = lazy(() => import('../pages/PaletteGenerator'))
-const ColorToner = lazy(() => import('../pages/ColorToner'))
-const SolidColors = lazy(() => import('../pages/SolidColors'))
-const ColorConverter = lazy(() => import('../pages/ColorConverter'))
-const ContrastChecker = lazy(() => import('../pages//ContrastChecker'))
+const Home = lazy(() => import('../Pages/Home'))
+const PaletteGenerator = lazy(() => import('../Pages/PaletteGenerator'))
+const ColorToner = lazy(() => import('../Pages/ColorToner'))
+const SolidColors = lazy(() => import('../Pages/SolidColors'))
+const ColorConverter = lazy(() => import('../Pages/ColorConverter'))
+const ContrastChecker = lazy(() => import('../Pages/ContrastChecker'))
 
 export const routes = createBrowserRouter([
 	{
