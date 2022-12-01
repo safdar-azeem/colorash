@@ -19,10 +19,11 @@ interface ButtonProps {
 	onClick?: () => void
 	iconColor?: string
 	htmlFor?: string
+	className?: string
 }
 
 const Button = ({
-	variant = 'primary',
+	variant = 'outline',
 	size = 'md',
 	isBlock = false,
 	isCircle = false,
@@ -32,13 +33,14 @@ const Button = ({
 	isGlass = false,
 	leftIcon,
 	rightIcon,
-	iconSize,
+	iconSize = 'md',
 	text,
 	label,
 	onClick,
 	color,
 	iconColor,
 	htmlFor,
+	className,
 }: ButtonProps) => {
 	return (
 		<div>
@@ -52,18 +54,18 @@ const Button = ({
 					isBlock && 'btn-block'
 				} ${isCircle && 'btn-circle'} ${isSuare && 'btn-square'} ${isAnimated && 'loading'} ${
 					isLoading && 'btn-loading'
-				} ${isGlass && 'btn-glass'}`}>
+				} ${isGlass && 'btn-glass'}  ${className}`}>
 				{leftIcon && !isAnimated && (
 					<Icon
 						icon={leftIcon}
-						className={`${iconSize || 'icon ' + size} ${iconColor} `}
+						className={`icon ${iconSize || size} ${iconColor} `}
 					/>
 				)}
-				{text && <span className='btn-text'>{text}</span>}
+				{text && <span className='btn-text  capitalize'>{text}</span>}
 				{rightIcon && !isAnimated && (
 					<Icon
 						icon={rightIcon}
-						className={`${iconSize || 'icon ' + size} ${iconColor} `}
+						className={`icon ${iconSize || size} ${iconColor} `}
 					/>
 				)}
 			</label>
