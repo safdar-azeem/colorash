@@ -32,11 +32,6 @@ const appNavigation: INavigationItem[] = [
 		icon: 'entypo:code',
 		path: AppRoutes.ColorConverter,
 	},
-	{
-		label: 'Collection',
-		icon: 'mdi:cards-heart',
-		path: AppRoutes.Collection,
-	},
 ]
 
 export default appNavigation
