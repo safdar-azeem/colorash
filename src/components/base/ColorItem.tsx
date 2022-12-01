@@ -1,8 +1,8 @@
 import { Icon } from '@iconify/react'
 import { colord } from 'colord'
 import { useEffect, useMemo, useState } from 'react'
+import toast from 'react-hot-toast'
 import { useAppDispatch } from '../../Hooks/store'
-import { addToast } from '../../Store/Slices/toast.slice'
 import { TRadius } from '../../Types/tailwind.types'
 import { generateColorCodes } from '../../Utils/generateColorCodes'
 import ColorPicker from './ColorPicker'
@@ -15,8 +15,6 @@ interface ColorItemProps {
 }
 
 const ColorItem = ({ color, radius }: ColorItemProps) => {
-	const dispatch = useAppDispatch()
-
 	const [isHover, setIsHover] = useState(false)
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 	const [isColorPickerOpen, setIsColorPickerOpen] = useState(false)
@@ -25,7 +23,12 @@ const ColorItem = ({ color, radius }: ColorItemProps) => {
 
 	const copyToClipboard = (value: string) => {
 		navigator.clipboard.writeText(value)
-		dispatch(addToast(`${value || colorValue} copied to clipboard`))
+		toast.success(`${value || colorValue} copied to clipboard`, {
+			icon: '👏',
+			style: {
+				borderRadius: '8px',
+			},
+		})
 	}
 
 	const colorCodes = useMemo((): string[] => {

@@ -1,9 +1,8 @@
 import { colord } from 'colord'
 import { useEffect, useState } from 'react'
-import { useAppDispatch, useAppSelector } from '../../Hooks/store'
+import toast from 'react-hot-toast'
 import colorCodesOptions from '../../Json/colorCodes.json'
 import colorFormatOptions from '../../Json/ColorFormat.json'
-import { addToast } from '../../Store/Slices/toast.slice'
 import { ColorFormat } from '../../Types/color.type'
 import Button from '../Base/Forms/Button'
 import Dropdown from '../Base/Forms/Dropdown'
@@ -15,13 +14,11 @@ interface ExportColorModalProps {
 const ExportColorModal = ({ colorsPalette }: ExportColorModalProps) => {
 	const [colorFormat, setColorFormat] = useState(colorFormatOptions[0].value)
 	const [colorCode, setColorCode] = useState<ColorFormat>(colorCodesOptions[0].value as ColorFormat)
-	const { palette } = useAppSelector((state) => state.colorToner)
 	const [colorValue, setColorValue] = useState<string>('')
-	const dispatch = useAppDispatch()
 
 	const generateColorValues = () => {
 		let colors: any = {}
-		const colorName: any = colord(palette[0]).toName({ closest: true })
+		const colorName: any = colord(colorsPalette[0]).toName({ closest: true })
 		colorsPalette
 			.map((color: any) => {
 				const { parsed } = color
@@ -40,12 +37,17 @@ const ExportColorModal = ({ colorsPalette }: ExportColorModalProps) => {
 
 	const handleCopy = () => {
 		navigator.clipboard.writeText(colorValue)
-		dispatch(addToast('Copied to clipboard'))
+		toast.success('Copied to clipboard', {
+			icon: '👏',
+			style: {
+				borderRadius: '8px',
+			},
+		})
 	}
 
 	useEffect(() => {
 		generateColorValues()
-	}, [colorsPalette, colorFormat, colorCode, palette])
+	}, [colorsPalette, colorFormat, colorCode, colorsPalette])
 
 	return (
 		<div>

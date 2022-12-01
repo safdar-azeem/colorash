@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useAppDispatch } from '../../Hooks/store'
-import { addToast } from '../../Store/Slices/toast.slice'
+import toast from 'react-hot-toast'
 import { generateColorCodes } from '../../Utils/generateColorCodes'
 import Button from '../Base/Forms/Button'
 
@@ -8,11 +8,14 @@ interface ColorCodesProps {
 	color: string
 }
 const ColorCodeList = ({ color }: ColorCodesProps) => {
-	const dispatch = useAppDispatch()
-
 	const handleCopy = (color: string) => {
 		navigator.clipboard.writeText(color)
-		dispatch(addToast(`${color} copied to clipboard`))
+		toast.success(`${color} copied to clipboard`, {
+			icon: '👏',
+			style: {
+				borderRadius: '8px',
+			},
+		})
 	}
 
 	const colorCodes = useMemo(() => {

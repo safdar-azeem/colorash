@@ -1,17 +1,13 @@
 import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
-import { Provider } from 'react-redux'
 import App from './App'
 import './assets/sass/main.scss'
 import FallBackLoader from './Components/Base/FallBackLoader'
-import { store } from './Store'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<React.StrictMode>
 		<Suspense fallback={<FallBackLoader />}>
-			<Provider store={store}>
-				<App />
-			</Provider>
+			<App />
 		</Suspense>
 	</React.StrictMode>
 )
