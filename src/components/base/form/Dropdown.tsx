@@ -121,7 +121,7 @@ const Dropdown = ({
 		<div>
 			{label && <label className='label'>{label}</label>}
 			<div
-				className={`dropdown  rounded-md dropdown-${directionY} dropdown-${directionX} ${
+				className={`dropdown w-full rounded-md dropdown-${directionY} dropdown-${directionX} ${
 					hover && 'dropdown-hover'
 				} dropdown-open `}
 				style={{
