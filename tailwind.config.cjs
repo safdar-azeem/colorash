@@ -41,7 +41,6 @@ module.exports = {
 		},
 
 		fontSize: {
-			// Base is 16px with 1.125x scaling
 			'nfs-4': rem(8),
 			'nfs-3': rem(10),
 			'nfs-2': rem(12),
