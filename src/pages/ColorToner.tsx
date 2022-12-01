@@ -1,15 +1,14 @@
 import { colord, random } from 'colord'
 import { useEffect, useMemo, useState } from 'react'
-import ColorPicker from '../Components/Base/ColorPicker'
 import ColorList from '../Components/Base/ColorList'
+import ColorPicker from '../Components/Base/ColorPicker'
 import Button from '../Components/Base/Forms/Button'
 import Dropdown from '../Components/Base/Forms/Dropdown'
 import Input from '../Components/Base/Forms/Input'
-import AppBody from '../Layout/AppBody'
-import AppContent from '../Layout/AppContent'
-import InputGroup from '../Layout/InputGroup'
 import ExportColorModal from '../Components/ColorToner/ExportColorModal'
 import colorModeOptions from '../Json/colorMode.json'
+import AppContent from '../Layout/AppContent'
+import InputGroup from '../Layout/InputGroup'
 import { ColorMode } from '../Types/color.type'
 
 const ColorToner = () => {
