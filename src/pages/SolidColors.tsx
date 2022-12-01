@@ -1,11 +1,11 @@
 import { colord } from 'colord'
 import { useEffect, useState } from 'react'
-import ColorPicker from '../components/base/color-picker/ColorPicker'
-import ColorList from '../components/base/ColorList'
-import Input from '../components/base/form/Input'
-import AppContent from '../layout/AppContent'
-import InputGroup from '../layout/InputGroup'
-import { generateRandomColor } from '../utils/generateRandomColor'
+import ColorPicker from '../Components/Base/ColorPicker'
+import ColorList from '../Components/Base/ColorList'
+import Input from '../Components/Base/Forms/Input'
+import AppContent from '../Layout/AppContent'
+import InputGroup from '../Layout/InputGroup'
+import { generateRandomColor } from '../Utils/generateRandomColor'
 
 const ColorToner = () => {
 	const [colorsPalette, setColorsPalette] = useState<any[]>(generateRandomColor(50, []))

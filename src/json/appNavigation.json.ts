@@ -1,4 +1,4 @@
-import { AppRoutes } from './../constants/routes.constants'
+import { AppRoutes } from '../Constants/routes.constants'
 
 export interface INavigationItem {
 	label: string

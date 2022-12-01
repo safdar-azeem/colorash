@@ -1,8 +1,8 @@
 import { Icon } from '@iconify/react'
 import { useMemo } from 'react'
-import { useAppDispatch, useAppSelector } from '../../hooks/store'
-import { removeToast } from '../../store/slices/toast.slice'
-import { Toast } from '../../types/toast.type'
+import { useAppDispatch, useAppSelector } from '../../Hooks/store'
+import { removeToast } from '../../Store/Slices/toast.slice'
+import { Toast } from '../../Types/toast.type'
 
 const ToastProvider = () => {
 	const { toasts } = useAppSelector((state) => state.toast)

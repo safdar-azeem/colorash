@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
 import App from './App'
 import './assets/sass/main.scss'
-import FallBackLoader from './components/base/FallBackLoader'
-import { store } from './store'
+import FallBackLoader from './Components/Base/FallBackLoader'
+import { store } from './Store'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<React.StrictMode>

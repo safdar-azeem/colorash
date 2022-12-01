@@ -1,12 +1,12 @@
 import { colord } from 'colord'
 import { useEffect, useState } from 'react'
-import { useAppDispatch, useAppSelector } from '../../hooks/store'
-import colorCodesOptions from '../../json/colorCodes.json'
-import colorFormatOptions from '../../json/ColorFormat.json'
-import { addToast } from '../../store/slices/toast.slice'
-import { ColorFormat } from '../../types/color.type'
-import Button from '../base/form/Button'
-import Dropdown from '../base/form/Dropdown'
+import { useAppDispatch, useAppSelector } from '../../Hooks/store'
+import colorCodesOptions from '../../Json/colorCodes.json'
+import colorFormatOptions from '../../Json/ColorFormat.json'
+import { addToast } from '../../Store/Slices/toast.slice'
+import { ColorFormat } from '../../Types/color.type'
+import Button from '../Base/Forms/Button'
+import Dropdown from '../Base/Forms/Dropdown'
 
 interface ExportColorModalProps {
 	colorsPalette: string[]

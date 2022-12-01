@@ -1,11 +1,11 @@
 import { colord } from 'colord'
 import { useMemo, useState } from 'react'
-import ColorPicker from '../components/base/color-picker/ColorPicker'
-import Input from '../components/base/form/Input'
-import AppContent from '../layout/AppContent'
-import InputGroup from '../layout/InputGroup'
-import ContrastInfo from '../components/contrastChecker/ContrastInfo'
-import ContrastTemplateExample from '../components/contrastChecker/ContrastTemplateExample'
+import ColorPicker from '../Components/Base/ColorPicker'
+import Input from '../Components/Base/Forms/Input'
+import AppContent from '../Layout/AppContent'
+import InputGroup from '../Layout/InputGroup'
+import ContrastInfo from '../Components/ContrastChecker/ContrastInfo'
+import ContrastTemplateExample from '../Components/ContrastChecker/ContrastTemplateExample'
 
 const ContrastChecker = () => {
 	const [color, setColor] = useState<string>('#000000')

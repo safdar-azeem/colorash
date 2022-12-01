@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
-import { useAppDispatch } from '../../hooks/store'
-import { addToast } from '../../store/slices/toast.slice'
-import { generateColorCodes } from '../../utils/generateColorCodes'
-import Button from '../base/form/Button'
+import { useAppDispatch } from '../../Hooks/store'
+import { addToast } from '../../Store/Slices/toast.slice'
+import { generateColorCodes } from '../../Utils/generateColorCodes'
+import Button from '../Base/Forms/Button'
 
 interface ColorCodesProps {
 	color: string

@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import ColorPicker from '../components/base/color-picker/ColorPicker'
-import Input from '../components/base/form/Input'
-import AppContent from '../layout/AppContent'
-import InputGroup from '../layout/InputGroup'
-import ColorCodeList from '../components/colorConvert/ColorCodeList'
+import ColorPicker from '../Components/Base/ColorPicker'
+import Input from '../Components/Base/Forms/Input'
+import AppContent from '../Layout/AppContent'
+import InputGroup from '../Layout/InputGroup'
+import ColorCodeList from '../Components/ColorConvert/ColorCodeList'
 
 const ColorConverter = () => {
 	const [color, setColor] = useState<string>('#285245')

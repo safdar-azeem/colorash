@@ -3,9 +3,9 @@ import a11yPlugin from 'colord/plugins/a11y'
 import mixPlugin from 'colord/plugins/mix'
 import namesPlugin from 'colord/plugins/names'
 import { RouterProvider } from 'react-router-dom'
-import FallBackLoader from './components/base/FallBackLoader'
-import ToastProvider from './components/base/ToastProvider'
-import { routes } from './routes'
+import FallBackLoader from './Components/Base/FallBackLoader'
+import ToastProvider from './Components/Base/ToastProvider'
+import { routes } from './Routes'
 
 extend([namesPlugin, mixPlugin, a11yPlugin])
 

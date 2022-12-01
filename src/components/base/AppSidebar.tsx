@@ -1,6 +1,6 @@
-import appNavigation from '../../json/appNavigation.json'
+import appNavigation from '../../Json/appNavigation.json'
 import Logo from './Logo'
-import NavigationMenu from './navigation/NavigationMenu'
+import NavigationMenu from './Navigation/NavigationMenu'
 
 const AppSidebar = () => {
 	return (

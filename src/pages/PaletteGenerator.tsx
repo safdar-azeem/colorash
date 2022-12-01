@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import ColorPicker from '../components/base/color-picker/ColorPicker'
-import Button from '../components/base/form/Button'
-import Dropdown from '../components/base/form/Dropdown'
-import frameOptions from '../json/frameOpetions.json'
-import { generateRandomColor } from '../utils/generateRandomColor'
+import ColorPicker from '../Components/Base/ColorPicker'
+import Button from '../Components/Base/Forms/Button'
+import Dropdown from '../Components/Base/Forms/Dropdown'
+import frameOptions from '../Json/frameOpetions.json'
+import { generateRandomColor } from '../Utils/generateRandomColor'
 
 const PaletteGenerator = () => {
 	const [colors, setColors] = useState(['#e5efee', '#e5efee', '#e5efee'])

@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
-import colorTonerSlice from './slices/colorToner.slice'
-import toastSlice from './slices/toast.slice'
+import colorTonerSlice from './Slices/colorToner.slice'
+import toastSlice from './Slices/toast.slice'
 
 export const store = configureStore({
 	reducer: {

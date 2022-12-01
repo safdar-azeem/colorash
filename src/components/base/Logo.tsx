@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react'
 import { Link } from 'react-router-dom'
-import { AppRoutes } from '../../constants/routes.constants'
+import { AppRoutes } from '../../Constants/routes.constants'
 
 const Logo = () => {
 	return (

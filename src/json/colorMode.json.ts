@@ -1,4 +1,4 @@
-import { DropdownOptions } from '../components/base/form/Dropdown'
+import { DropdownOptions } from '../Components/Base/Forms/Dropdown'
 
 const colorModeOptions: DropdownOptions[] = [
 	{

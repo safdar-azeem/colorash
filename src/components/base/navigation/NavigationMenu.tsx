@@ -1,4 +1,4 @@
-import { INavigationItem } from '../../../json/appNavigation.json'
+import { INavigationItem } from '../../../Json/appNavigation.json'
 import NavLink from './NavLink'
 
 interface INavigationMenuProps {

@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react'
-import { TButtonVariant, TSize } from '../../../types/tailwind.types'
+import { TButtonVariant, TSize } from '../../../Types/tailwind.types'
 
 interface ButtonProps {
 	variant?: TButtonVariant

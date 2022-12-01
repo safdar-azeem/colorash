@@ -1,13 +1,13 @@
 import { Icon } from '@iconify/react'
 import { colord } from 'colord'
 import { useEffect, useMemo, useState } from 'react'
-import { useAppDispatch } from '../../hooks/store'
-import { addToast } from '../../store/slices/toast.slice'
-import { TRadius } from '../../types/tailwind.types'
-import { generateColorCodes } from '../../utils/generateColorCodes'
-import ColorPicker from './color-picker/ColorPicker'
-import Button from './form/Button'
-import Dropdown from './form/Dropdown'
+import { useAppDispatch } from '../../Hooks/store'
+import { addToast } from '../../Store/Slices/toast.slice'
+import { TRadius } from '../../Types/tailwind.types'
+import { generateColorCodes } from '../../Utils/generateColorCodes'
+import ColorPicker from './ColorPicker'
+import Button from './Forms/Button'
+import Dropdown from './Forms/Dropdown'
 
 interface ColorItemProps {
 	color: any

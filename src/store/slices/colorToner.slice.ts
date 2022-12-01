@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { colord, Colord } from 'colord'
-import { ColorFormat, ColorMode } from '../../types/color.type'
+import { ColorFormat, ColorMode } from '../../Types/color.type'
 
 interface IState {
 	color: string
