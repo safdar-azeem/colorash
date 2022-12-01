@@ -1,6 +1,6 @@
 export enum AppRoutes {
 	Home = '/',
-	PaletteGenerator = '/',
+	PaletteGenerator = '/palette-generator',
 	ColorToner = 'color-toner',
 	SolidColors = 'solid-colors',
 	ContrastChecker = 'contrast-checker',
