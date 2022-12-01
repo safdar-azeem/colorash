@@ -20,7 +20,7 @@ const ColorCodeList = ({ color }: ColorCodesProps) => {
 	}, [color])
 
 	return (
-		<ul className='bg-base-100  p-2 rounded-box'>
+		<ul>
 			{colorCodes.map((colorCode, index) => (
 				<li
 					key={index}
