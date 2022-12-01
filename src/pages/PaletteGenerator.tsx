@@ -3,6 +3,7 @@ import ColorPicker from '../components/base/color-picker/ColorPicker'
 import Button from '../components/base/form/Button'
 import Dropdown from '../components/base/form/Dropdown'
 import frameOptions from '../json/frameOpetions.json'
+import { generateRandomColor } from '../utils/generateRandomColor'
 
 const PaletteGenerator = () => {
 	const [colors, setColors] = useState(['#e5efee', '#e5efee', '#e5efee'])
@@ -14,14 +15,9 @@ const PaletteGenerator = () => {
 		setColors(newColors)
 	}
 
-	const refreshColors = () => {
-		const newColors = colors.map(() => '#' + Math.floor(Math.random() * 16777215).toString(16))
-		setColors(newColors)
-	}
+	const refreshColors = () => setColors(generateRandomColor(3))
 
-	const handleDropdownChange = (value: string) => {
-		setDropdownValue(value)
-	}
+	const handleDropdownChange = (value: string) => setDropdownValue(value)
 
 	return (
 		<div>
