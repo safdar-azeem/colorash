@@ -2,6 +2,8 @@ import iro from '@jaames/iro'
 import { colord } from 'colord'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { TRadius, TSize } from '../../Types/tailwind.types'
+import { generateRandomColor } from '../../Utils/generateRandomColor'
+import Button from './Forms/Button'
 import Dropdown from './Forms/Dropdown'
 
 interface ColorPickerProps {
@@ -13,11 +15,12 @@ interface ColorPickerProps {
 	saturation?: boolean
 	value?: boolean
 	alpha?: boolean
+	withRandomBtn?: boolean
 	onChange?: (color: string) => void
 	onClose?: () => void
 	onOpen?: () => void
 	button?: JSX.Element
-	direction?: 'left' | 'end' | 'none'
+	direction?: 'left' | 'end' | 'right' | 'none'
 }
 
 const ColorPicker = ({
@@ -25,7 +28,8 @@ const ColorPicker = ({
 	onChange,
 	rounded = 'full',
 	size = 'xs',
-	direction = 'end',
+	direction = 'right',
+	withRandomBtn = false,
 	box,
 	hue,
 	saturation,
@@ -103,6 +107,8 @@ const ColorPicker = ({
 		})
 	}, [isOpen])
 
+	console.log('colorPicker', colorPicker)
+
 	return (
 		<Dropdown
 			onClose={onClose}
@@ -119,12 +125,26 @@ const ColorPicker = ({
 				)
 			}
 			children={
-				<div className='shadow-lg p-3 border border-gray-100 bg-white w-max rounded-xl mt-2'>
+				<div className='shadow-lg p-3 border border-gray-100 bg-white w-max rounded-xl mt-2 flex flex-col gap-y-4'>
 					<div
 						id='picker'
-						className='mt-3'
 						ref={ref}
 					/>
+					{withRandomBtn && (
+						<Button
+							fullWidth
+							size='sm'
+							leftIcon='charm:refresh'
+							iconColor='text-gray-600'
+							iconSize='text-fs-5'
+							onClick={() => {
+								onChange && onChange(generateRandomColor(1)[0])
+								if (colorPicker.current)
+									// @ts-ignore
+									colorPicker.current.color.hexString = generateRandomColor(1)[0]
+							}}
+						/>
+					)}
 				</div>
 			}
 			directionY='bottom'

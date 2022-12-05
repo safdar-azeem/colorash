@@ -6,6 +6,7 @@ import AppContent from '../Layout/AppContent'
 import InputGroup from '../Layout/InputGroup'
 import ContrastInfo from '../Components/ContrastChecker/ContrastInfo'
 import ContrastTemplateExample from '../Components/ContrastChecker/ContrastTemplateExample'
+import AppHeader from '../Layout/AppHeader'
 
 const ContrastChecker = () => {
 	const [color, setColor] = useState<string>('#000000')
@@ -27,40 +28,44 @@ const ContrastChecker = () => {
 
 	return (
 		<>
-			<InputGroup>
-				<Input
-					label='Background'
-					value={bgColor}
-					onChange={handleBgColorChange}
-					rightSlot={
-						<ColorPicker
-							color={bgColor}
-							value
-							saturation
-							box
-							hue
-							onChange={(color) => setBgColor(color)}
-							size='xs'
-						/>
-					}
-				/>
-				<Input
-					label='Foreground'
-					value={color}
-					onChange={handleColorChange}
-					rightSlot={
-						<ColorPicker
-							color={color}
-							value
-							saturation
-							box
-							hue
-							onChange={(color) => setColor(color)}
-							size='xs'
-						/>
-					}
-				/>
-			</InputGroup>
+			<AppHeader>
+				<InputGroup>
+					<Input
+						label='Background'
+						value={bgColor}
+						onChange={handleBgColorChange}
+						rightSlot={
+							<ColorPicker
+								color={bgColor}
+								value
+								saturation
+								box
+								hue
+								size='xs'
+								direction='left'
+								onChange={(color) => setBgColor(color)}
+							/>
+						}
+					/>
+					<Input
+						label='Foreground'
+						value={color}
+						onChange={handleColorChange}
+						rightSlot={
+							<ColorPicker
+								color={color}
+								value
+								saturation
+								box
+								hue
+								size='xs'
+								direction='left'
+								onChange={(color) => setColor(color)}
+							/>
+						}
+					/>
+				</InputGroup>
+			</AppHeader>
 			<AppContent className='grid grid-cols-1 md:grid-cols-2 gap-10'>
 				<ContrastInfo
 					bgColor={bgColor}

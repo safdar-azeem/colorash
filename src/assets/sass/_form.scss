@@ -76,6 +76,10 @@ input {
 	@apply min-h-[36px] h-[36px];
 }
 
+.btn-sm.btn-circle {
+	@apply w-[36px] h-[36px] min-w-[36px] min-h-[36px];
+}
+
 .btn.btn-md,
 .btn,
 .input.input-md,
@@ -108,6 +112,12 @@ input {
 
 	&.btn-lg {
 		@apply text-fs-0;
+	}
+
+	&.btn-disabled {
+		--tw-border-opacity: 0.2 !important;
+		--tw-bg-opacity: 0.5 !important;
+		--tw-text-opacity: 0.4 !important;
 	}
 }
 

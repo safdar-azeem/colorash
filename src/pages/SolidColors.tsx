@@ -6,6 +6,7 @@ import Input from '../Components/Base/Forms/Input'
 import AppContent from '../Layout/AppContent'
 import InputGroup from '../Layout/InputGroup'
 import { generateRandomColor } from '../Utils/generateRandomColor'
+import AppHeader from '../Layout/AppHeader'
 
 const ColorToner = () => {
 	const [colorsPalette, setColorsPalette] = useState<any[]>(generateRandomColor(50, []))
@@ -26,10 +27,8 @@ const ColorToner = () => {
 
 	useEffect(() => {
 		document.body.style.backgroundColor = bgColor
-		document.body.style.color = isLight ? '#000' : '#fff'
 		return () => {
 			document.body.style.backgroundColor = ''
-			document.body.style.color = ''
 		}
 	}, [bgColor])
 
@@ -40,24 +39,27 @@ const ColorToner = () => {
 
 	return (
 		<>
-			<InputGroup>
-				<Input
-					label='Background'
-					value={bgColor}
-					onChange={handleBgColorChange}
-					rightSlot={
-						<ColorPicker
-							color={bgColor}
-							box
-							value
-							saturation
-							hue
-							onChange={(color) => setBgColor(color)}
-							size='xs'
-						/>
-					}
-				/>
-			</InputGroup>
+			<AppHeader>
+				<InputGroup>
+					<Input
+						label='Background'
+						value={bgColor}
+						onChange={handleBgColorChange}
+						rightSlot={
+							<ColorPicker
+								color={bgColor}
+								box
+								value
+								saturation
+								hue
+								size='xs'
+								direction='left'
+								onChange={(color) => setBgColor(color)}
+							/>
+						}
+					/>
+				</InputGroup>
+			</AppHeader>
 			<AppContent>
 				<ColorList
 					rowGap={16}

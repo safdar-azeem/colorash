@@ -3,6 +3,7 @@ import { TButtonVariant, TSize } from '../../../Types/tailwind.types'
 
 interface ButtonProps {
 	variant?: TButtonVariant
+	fullWidth?: boolean
 	size?: TSize
 	color?: string
 	isBlock?: boolean
@@ -20,11 +21,13 @@ interface ButtonProps {
 	iconColor?: string
 	htmlFor?: string
 	className?: string
+	disabled?: boolean
 }
 
 const Button = ({
 	variant = 'outline',
 	size = 'md',
+	fullWidth = false,
 	isBlock = false,
 	isCircle = false,
 	isSuare = false,
@@ -41,20 +44,21 @@ const Button = ({
 	iconColor,
 	htmlFor,
 	className,
+	disabled = false,
 }: ButtonProps) => {
 	return (
 		<div>
 			{label && <label className='label'>{label}</label>}
 			<label
 				htmlFor={htmlFor}
-				onClick={onClick}
+				onClick={disabled ? () => {} : onClick}
 				style={{ color: color }}
-				className={`btn gap-2
+				className={`btn ${disabled && 'btn-disabled'} gap-2
 			${(leftIcon || rightIcon) && !text && 'btn-square'} btn-${variant} btn-${size} ${
 					isBlock && 'btn-block'
 				} ${isCircle && 'btn-circle'} ${isSuare && 'btn-square'} ${isAnimated && 'loading'} ${
 					isLoading && 'btn-loading'
-				} ${isGlass && 'btn-glass'}  ${className}`}>
+				} ${isGlass && 'btn-glass'} ${fullWidth && 'w-full'}  ${className}`}>
 				{leftIcon && !isAnimated && (
 					<Icon
 						icon={leftIcon}

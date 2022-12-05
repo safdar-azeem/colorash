@@ -7,6 +7,7 @@ export type DropdownOptions = {
 	key: string
 	label: string
 	value: string
+	disabled?: boolean
 }
 
 interface DropdownProps {
@@ -25,7 +26,7 @@ interface DropdownProps {
 	iconPosition?: 'left' | 'right'
 	iconColor?: string
 	variant?: TButtonVariant
-	directionX?: 'left' | 'end' | 'none'
+	directionX?: 'left' | 'end' | 'right' | 'none'
 	directionY?: 'top' | 'bottom' | 'none'
 	contentMargin?: string
 	contentPadding?: string
@@ -63,7 +64,7 @@ const Dropdown = ({
 	iconColor = 'text-gray-600',
 	variant,
 	directionY = 'bottom',
-	directionX = 'end',
+	directionX = 'left',
 	hover,
 	contentMargin = 'mt-2',
 	contentPadding = 'p-2',
@@ -110,7 +111,7 @@ const Dropdown = ({
 			setError('')
 			return options
 		}
-		const filtered = options?.filter((option) =>
+		const filtered = options?.filter((option: DropdownOptions) =>
 			option.label.toLowerCase().includes(searchValue.toLowerCase())
 		)
 		!filtered || filtered.length === 0 ? setError('No results found') : setError('')
@@ -121,7 +122,7 @@ const Dropdown = ({
 		<div>
 			{label && <label className='label'>{label}</label>}
 			<div
-				className={`dropdown w-full rounded-md dropdown-${directionY} dropdown-${directionX} ${
+				className={`dropdown  ${directionY} ${directionX} w-full rounded-md   ${
 					hover && 'dropdown-hover'
 				} dropdown-open `}
 				style={{
@@ -174,9 +175,12 @@ const Dropdown = ({
 								className={` ${contentColor} ${contentHeight}  ${
 									isScrollable ? 'overflow-auto' : 'max-h-max'
 								} `}>
-								{filteredOptions?.map((option) => (
-									<li onClick={() => handleOptionClick(option.value)}>
-										<a className={`${value === option.value && 'bg-primary text-white'}`}>
+								{filteredOptions?.map((option: DropdownOptions) => (
+									<li onClick={() => !option.disabled && handleOptionClick(option.value)}>
+										<a
+											className={`${value === option.value && 'bg-primary text-white'} ${
+												option.disabled && 'disabled'
+											} `}>
 											{option.label}
 										</a>
 									</li>

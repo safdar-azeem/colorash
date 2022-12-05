@@ -7,7 +7,7 @@ interface INavigationMenuProps {
 
 const NavigationMenu = ({ items }: INavigationMenuProps) => {
 	return (
-		<ul className='menu navigation menu-compact w-full gap-y-2 p-2 rounded-box '>
+		<ul className='menu navigation menu-compact w-full gap-y-2 px-2 rounded-box '>
 			{items.map((navItem: INavigationItem) => (
 				<li>
 					<NavLink

@@ -1,17 +1,24 @@
 import { colord } from 'colord'
+import ReactDOMServer from 'react-dom/server'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import colorCodesOptions from '../../Json/colorCodes.json'
 import colorFormatOptions from '../../Json/ColorFormat.json'
 import { ColorFormat } from '../../Types/color.type'
+import FigmaSvgPalette from '../Base/FigmaSvgPalette'
 import Button from '../Base/Forms/Button'
 import Dropdown from '../Base/Forms/Dropdown'
+// @ts-ignore
+import { Code, InlineCode } from 'react-prism-code'
+import 'prismjs/themes/prism-solarizedlight.css'
+import 'prismjs/components/prism-jsx'
 
 interface ExportColorModalProps {
 	colorsPalette: string[]
+	generateColorFor: 'palette' | 'tones'
 }
 
-const ExportColorModal = ({ colorsPalette }: ExportColorModalProps) => {
+const ExportColorModal = ({ colorsPalette, generateColorFor }: ExportColorModalProps) => {
 	const [colorFormat, setColorFormat] = useState(colorFormatOptions[0].value)
 	const [colorCode, setColorCode] = useState<ColorFormat>(colorCodesOptions[0].value as ColorFormat)
 	const [colorValue, setColorValue] = useState<string>('')
@@ -21,28 +28,49 @@ const ExportColorModal = ({ colorsPalette }: ExportColorModalProps) => {
 		const colorName: any = colord(colorsPalette[0]).toName({ closest: true })
 		colorsPalette
 			.map((color: any) => {
-				const { parsed } = color
-				if (colorCode === 'rgb') return colord(parsed).toRgbString()
-				if (colorCode === 'hsl') return colord(parsed).toHslString()
-				return colord(parsed).toHex()
+				const colorValue = typeof color === 'object' ? color.parsed : color
+				if (colorCode === 'rgb') return colord(colorValue).toRgbString()
+				if (colorCode === 'hsl') return colord(colorValue).toHslString()
+				return colord(colorValue).toHex()
 			})
 			.map((color: string, index: number) => {
-				if (colorFormat === 'css') return (colors[`--${colorName + '-' + (index + 1)}00`] = color)
-				if (colorFormat === 'scss') return (colors[`$${colorName + '-' + (index + 1)}00`] = color)
-				return (colors[`${index + 1}00`] = color)
+				const name =
+					generateColorFor === 'palette' ? colord(color).toName({ closest: true }) : colorName
+				if (colorFormat === 'css')
+					return generateColorFor === 'palette'
+						? (colors[`--${name}`] = color)
+						: (colors[`--${name + '-' + (index + 1)}00`] = color)
+				if (colorFormat === 'scss')
+					return generateColorFor === 'palette'
+						? (colors[`$${name}`] = color)
+						: (colors[`$${name + '-' + (index + 1)}00`] = color)
+				return generateColorFor === 'palette'
+					? (colors[`${name}`] = color)
+					: (colors[`${index + 1}00`] = color)
 			})
 
-		setColorValue(JSON.stringify(colors, null, 2))
+		setColorValue(JSON.stringify(colors, null, 3))
 	}
 
-	const handleCopy = () => {
-		navigator.clipboard.writeText(colorValue)
+	const copyToClipboard = (value: any) => {
+		navigator.clipboard.writeText(value)
 		toast.success('Copied to clipboard', {
 			icon: '👏',
 			style: {
 				borderRadius: '8px',
 			},
 		})
+	}
+
+	const handleCopy = () => {
+		if (colorFormat === 'figma') {
+			const element = FigmaSvgPalette({ colors: colorsPalette })
+			const svg = ReactDOMServer.renderToStaticMarkup(element)
+			console.log(svg)
+			copyToClipboard(svg)
+		} else {
+			copyToClipboard(colorValue)
+		}
 	}
 
 	useEffect(() => {
@@ -69,38 +97,51 @@ const ExportColorModal = ({ colorsPalette }: ExportColorModalProps) => {
 							variant='ghost'
 							htmlFor='export-color-modal'
 							isCircle
-							iconSize='text-fs-5'
+							iconSize='xl'
 						/>
 					</header>
 					<main className='px-4 pb-3'>
 						<section className='my-4 flex gap-2'>
 							<Button
-								text='Copy All'
+								text='Copy Code'
 								onClick={handleCopy}
 								leftIcon='material-symbols:content-copy'
 							/>
-							<Dropdown
-								options={colorCodesOptions}
-								value={colorCode}
-								onChange={setColorCode as any}
-							/>
+							{colorFormat !== 'figma' && (
+								<Dropdown
+									options={colorCodesOptions}
+									value={colorCode}
+									onChange={setColorCode as any}
+								/>
+							)}
 							<Dropdown
 								options={colorFormatOptions}
 								value={colorFormat}
 								onChange={setColorFormat}
 							/>
 						</section>
-						<textarea
-							className='input h-full input-bordered w-full'
-							value={
-								colorFormat !== 'javascript'
-									? colorValue.replace(/"/g, '').replace(/,/g, ';')
-									: colorValue
-							}
-							style={{ height: 'calc(100vh - 300px)' }}
-							rows={30}
-							onChange={(event) => setColorValue(event.target.value)}
-						/>
+						{colorFormat === 'figma' ? (
+							<div className='text-fs-0'>
+								<FigmaSvgPalette colors={colorsPalette} />
+								<Code lang='jsx'>
+									{ReactDOMServer.renderToStaticMarkup(
+										<FigmaSvgPalette colors={colorsPalette} />
+									).replaceAll('>', '> \n')}
+								</Code>
+							</div>
+						) : (
+							<textarea
+								className='input h-full input-bordered w-full mt-4'
+								value={
+									colorFormat !== 'javascript'
+										? colorValue.replace(/"/g, '').replace(/,/g, ';')
+										: colorValue
+								}
+								style={{ height: 'calc(100vh - 300px)' }}
+								rows={30}
+								onChange={(event) => setColorValue(event.target.value)}
+							/>
+						)}
 					</main>
 				</label>
 			</label>

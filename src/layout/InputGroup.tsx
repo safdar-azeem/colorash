@@ -9,7 +9,7 @@ interface Props {
 const InputGroup = ({ children, className, minWidth = 250 }: Props) => {
 	return (
 		<div
-			className={`grid gap-4 ${className} `}
+			className={`grid gap-4 ${className}`}
 			style={{ gridTemplateColumns: `repeat(auto-fill, minmax(${minWidth}px, 1fr))` }}>
 			{children}
 		</div>

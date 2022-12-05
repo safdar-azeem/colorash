@@ -16,6 +16,11 @@ const colorFormatOptions: DropdownOptions[] = [
 		label: 'SCSS',
 		value: 'scss',
 	},
+	{
+		key: '4',
+		label: 'Figma',
+		value: 'figma',
+	},
 ]
 
 export default colorFormatOptions

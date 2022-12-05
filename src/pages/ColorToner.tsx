@@ -8,6 +8,7 @@ import Input from '../Components/Base/Forms/Input'
 import ExportColorModal from '../Components/ColorToner/ExportColorModal'
 import colorModeOptions from '../Json/colorMode.json'
 import AppContent from '../Layout/AppContent'
+import AppHeader from '../Layout/AppHeader'
 import InputGroup from '../Layout/InputGroup'
 import { ColorMode } from '../Types/color.type'
 
@@ -43,10 +44,8 @@ const ColorToner = () => {
 
 	useEffect(() => {
 		document.body.style.backgroundColor = bgColor
-		document.body.style.color = isLight || bgColor === 'transparent' ? '#000' : '#fff'
 		return () => {
 			document.body.style.backgroundColor = ''
-			document.body.style.color = ''
 		}
 	}, [bgColor])
 
@@ -59,75 +58,80 @@ const ColorToner = () => {
 
 	return (
 		<>
-			<InputGroup minWidth={185}>
-				<Input
-					label='Background'
-					value={bgColor}
-					onChange={handleBgColorChange}
-					leftSlot={
-						<ColorPicker
-							color={bgColor}
-							value
-							saturation
-							box
-							hue
-							onChange={(color) => setBgColor(color)}
-							size='xs'
-							direction='none'
-						/>
-					}
-				/>
-				<Input
-					label='Colour'
-					value={color}
-					onChange={handleColorChange}
-					leftSlot={
-						<ColorPicker
-							color={color}
-							value
-							saturation
-							box
-							hue
-							onChange={(color) => setColor(color)}
-							size='xs'
-							direction='none'
-						/>
-					}
-					rightSlot={
-						<Button
-							leftIcon='charm:refresh'
-							variant='ghost'
-							size='sm'
-							onClick={handleRandom}
-						/>
-					}
-				/>
-				<Dropdown
-					label='Mode'
-					withIcon
-					variant='outline'
-					options={colorModeOptions}
-					value={colorMode}
-					onChange={handleDropdownChange}
-					minButtonWidth='100%'
-				/>
-				<Input
-					type='number'
-					label='Quantity'
-					value={quantity}
-					min={2}
-					max={100}
-					onChange={handleQuantityChange}
-				/>
-				<Button
-					leftIcon='charm:download'
-					label='Export'
-					htmlFor='export-color-modal'
-				/>
-			</InputGroup>
+			<AppHeader>
+				<InputGroup minWidth={185}>
+					<Input
+						label='Background'
+						value={bgColor}
+						onChange={handleBgColorChange}
+						leftSlot={
+							<ColorPicker
+								color={bgColor}
+								value
+								saturation
+								box
+								hue
+								onChange={(color) => setBgColor(color)}
+								size='xs'
+								direction='none'
+							/>
+						}
+					/>
+					<Input
+						label='Colour'
+						value={color}
+						onChange={handleColorChange}
+						leftSlot={
+							<ColorPicker
+								color={color}
+								value
+								saturation
+								box
+								hue
+								onChange={(color) => setColor(color)}
+								size='xs'
+								direction='none'
+							/>
+						}
+						rightSlot={
+							<Button
+								leftIcon='charm:refresh'
+								variant='ghost'
+								size='sm'
+								onClick={handleRandom}
+							/>
+						}
+					/>
+					<Dropdown
+						label='Mode'
+						withIcon
+						variant='outline'
+						options={colorModeOptions}
+						value={colorMode}
+						onChange={handleDropdownChange}
+						minButtonWidth='100%'
+					/>
+					<Input
+						type='number'
+						label='Quantity'
+						value={quantity}
+						min={2}
+						max={100}
+						onChange={handleQuantityChange}
+					/>
+					<Button
+						leftIcon='charm:download'
+						label='Export'
+						htmlFor='export-color-modal'
+					/>
+				</InputGroup>
+			</AppHeader>
 			<AppContent>
 				<ColorList colorsPalette={colorsPalette} />
-				<ExportColorModal colorsPalette={colorsPalette} />
+				<ExportColorModal
+					colorsPalette={colorsPalette}
+					generateColorFor='tones'
+				/>
 			</AppContent>
 		</>
 	)
