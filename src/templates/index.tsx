@@ -30,7 +30,7 @@ const templates: TemplateProps = {
 		'2': {
 			component: (props: any) => <Folio {...props} />,
 			colors: ['#448ACA'],
-			backDropColor: '#E5E0DA',
+			backDropColor: '#d6e2e5',
 		},
 	},
 	Mobile: {},

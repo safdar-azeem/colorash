@@ -15,8 +15,6 @@ const Collections = () => {
 	const [loading, setLoading] = React.useState(true)
 	const [selectedPalette, setSelectedPalette] = React.useState<string[]>([])
 
-	console.log('selectedPalette', selectedPalette)
-
 	React.useEffect(() => {
 		const savedPalettes = localStorage.getItem('savedPalettes')
 		if (savedPalettes) {
@@ -37,7 +35,7 @@ const Collections = () => {
 				{loading ? (
 					<FallBackLoader />
 				) : (
-					<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
+					<div className='grid grid-cols-1 md:grid-cols-2 gap-10 lg:grid-cols-3'>
 						{collections.map((collection: Palette, index) => {
 							return (
 								<CollectionItem

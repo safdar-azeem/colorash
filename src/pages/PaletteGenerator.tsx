@@ -153,7 +153,7 @@ const PaletteGenerator = () => {
 					/>
 				</section>
 				<AppContent
-					className='grid zoomIn mt-3 resize overflow-auto place-items-center px-8 py-10  border border-gray-100 rounded-[30px]'
+					className='grid fadeIn mt-3 resize overflow-auto place-items-center px-8 py-10  border border-gray-100 rounded-[30px]'
 					style={{
 						backgroundColor: template.backDropColor,
 					}}>

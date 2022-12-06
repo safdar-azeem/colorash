@@ -14,13 +14,13 @@ interface Props {
 const CollectionItem = ({ collection, handleRemovePalette, setSelectedPalette }: Props) => {
 	const template = useMemo(() => templates[collection.frame][collection.index], [collection])
 	return (
-		<div className='zoomIn'>
-			<div className='gap-3 grid place-items-center relative z-0'>
+		<div className='h-full'>
+			<div className='gap-3 grid place-items-center relative z-0 h-full fadeIn'>
 				<Link
 					style={{
 						backgroundColor: template.backDropColor,
 					}}
-					className='w-full p-4 rounded-xl'
+					className='w-full p-4 rounded-xl h-full grid place-items-center'
 					to={`${AppRoutes.PaletteGenerator}/${collection.frame}/${
 						collection.index
 					}/${collection.colors.join('-').replaceAll('#', '')}`}>
@@ -38,7 +38,7 @@ const CollectionItem = ({ collection, handleRemovePalette, setSelectedPalette }:
 						onClick={() => handleRemovePalette(collection)}
 					/>
 				</div>
-				<footer className='w-full flex  items-center gap-3'>
+				<footer className='w-full flex  items-center gap-x-3'>
 					{collection.colors.map((color, index) => (
 						<div
 							className='w-7 h-7 rounded-full'
