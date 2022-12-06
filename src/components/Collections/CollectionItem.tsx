@@ -1,9 +1,9 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { AppRoutes } from '../../constants/routes.constants'
 import templates from '../../templates'
 import { Palette } from '../../utils/savePalettes'
-import Button from '../base/forms/Button'
+import Button from '../reusable/forms/Button'
 
 interface Props {
 	collection: Palette

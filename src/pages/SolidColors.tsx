@@ -1,12 +1,12 @@
 import { colord } from 'colord'
 import { lazy, useEffect, useState } from 'react'
-import Input from '../components/base/forms/Input'
-import AppContent from '../layout/AppContent'
-import AppHeader from '../layout/AppHeader'
-import InputGroup from '../layout/InputGroup'
+import Input from '../components/reusable/forms/Input'
+import AppContent from '../layouts/AppContent'
+import AppHeader from '../layouts/AppHeader'
+import InputGroup from '../layouts/InputGroup'
 import { generateRandomColor } from '../utils/generateRandomColor'
-const ColorList = lazy(() => import('../components/base/ColorList'))
-const ColorPicker = lazy(() => import('../components/base/ColorPicker'))
+const ColorList = lazy(() => import('../components/reusable/ColorList'))
+const ColorPicker = lazy(() => import('../components/reusable/ColorPicker'))
 
 const ColorToner = () => {
 	const [colorsPalette, setColorsPalette] = useState<any[]>(generateRandomColor(50, []))

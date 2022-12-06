@@ -1,7 +1,7 @@
 import { colord } from 'colord'
 import { lazy, useMemo, useState } from 'react'
-import Input from '../components/base/forms/Input'
-import AppContent from '../layout/AppContent'
+import Input from '../components/reusable/forms/Input'
+import AppContent from '../layouts/AppContent'
 import AppHeader from '../layout/AppHeader'
 import InputGroup from '../layout/InputGroup'
 const ColorPicker = lazy(() => import('../components/base/ColorPicker'))

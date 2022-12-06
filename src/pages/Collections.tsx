@@ -1,8 +1,8 @@
 import React, { lazy } from 'react'
-import FallBackLoader from '../components/base/FallBackLoader'
-import AppContent from '../layout/AppContent'
+import FallBackLoader from '../components/reusable/FallBackLoader'
+import AppContent from '../layouts/AppContent'
 import { Palette, removePalette } from '../utils/savePalettes'
-const ExportColorModal = lazy(() => import('../components/colorToner/ExportColorModal'))
+const ExportColorModal = lazy(() => import('../components/reusable/modals/ExportColorModal'))
 const CollectionItem = lazy(() => import('../components/collections/CollectionItem'))
 
 const Collections = () => {

@@ -4,7 +4,7 @@ import mixPlugin from 'colord/plugins/mix'
 import namesPlugin from 'colord/plugins/names'
 import { Toaster } from 'react-hot-toast'
 import { RouterProvider } from 'react-router-dom'
-import FallBackLoader from './components/base/FallBackLoader'
+import FallBackLoader from './components/reusable/FallBackLoader'
 import { routes } from './routes'
 
 extend([namesPlugin, mixPlugin, a11yPlugin])

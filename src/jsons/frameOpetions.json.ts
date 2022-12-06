@@ -1,4 +1,4 @@
-import { DropdownOptions } from '../components/base/forms/Dropdown'
+import { DropdownOptions } from '../components/reusable/forms/Dropdown'
 
 export type Frame =
 	| 'Mobile'

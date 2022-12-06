@@ -1,9 +1,9 @@
 import { lazy } from 'react'
-import { Frame } from '../json/frameOpetions.json'
+import { Frame } from '../jsons/frameOpetions.json'
 
-const UintyWebTemplate = lazy(() => import('./web/Unity'))
-const MalikoWebTemplate = lazy(() => import('./web/Maliko'))
-const Folio = lazy(() => import('./web/Folio'))
+const UintyWebTemplate = lazy(() => import('./website/Unity'))
+const MalikoWebTemplate = lazy(() => import('./website/Maliko'))
+const Folio = lazy(() => import('./website/Folio'))
 
 type TemplateProps = {
 	[key in Frame]: {

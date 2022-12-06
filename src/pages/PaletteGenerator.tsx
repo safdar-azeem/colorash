@@ -1,17 +1,17 @@
 import { lazy, useEffect, useMemo, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import ColorPicker from '../components/base/ColorPicker'
-import Button from '../components/base/forms/Button'
-import Dropdown from '../components/base/forms/Dropdown'
+import ColorPicker from '../components/reusable/ColorPicker'
+import Button from '../components/reusable/forms/Button'
+import Dropdown from '../components/reusable/forms/Dropdown'
 import { AppRoutes } from '../constants/routes.constants'
-import frameOptions, { Frame } from '../json/frameOpetions.json'
-import AppContent from '../layout/AppContent'
-import AppHeader from '../layout/AppHeader'
-import InputGroup from '../layout/InputGroup'
+import frameOptions, { Frame } from '../jsons/frameOpetions.json'
+import AppContent from '../layouts/AppContent'
+import AppHeader from '../layouts/AppHeader'
+import InputGroup from '../layouts/InputGroup'
 import templates from '../templates'
 import { generateRandomColor } from '../utils/generateRandomColor'
 import { checkIsAlreadySaved, savePalette } from '../utils/savePalettes'
-const ExportColorModal = lazy(() => import('../components/colorToner/ExportColorModal'))
+const ExportColorModal = lazy(() => import('../components/reusable/modals/ExportColorModal'))
 
 const PaletteGenerator = () => {
 	const navigate = useNavigate()
