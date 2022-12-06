@@ -1,16 +1,16 @@
 import { colord, random } from 'colord'
-import { useEffect, useMemo, useState } from 'react'
-import ColorList from '../Components/Base/ColorList'
-import ColorPicker from '../Components/Base/ColorPicker'
-import Button from '../Components/Base/Forms/Button'
-import Dropdown from '../Components/Base/Forms/Dropdown'
-import Input from '../Components/Base/Forms/Input'
-import ExportColorModal from '../Components/ColorToner/ExportColorModal'
-import colorModeOptions from '../Json/colorMode.json'
-import AppContent from '../Layout/AppContent'
-import AppHeader from '../Layout/AppHeader'
-import InputGroup from '../Layout/InputGroup'
-import { ColorMode } from '../Types/color.type'
+import { lazy, useEffect, useMemo, useState } from 'react'
+import Button from '../components/base/forms/Button'
+import Input from '../components/base/forms/Input'
+import colorModeOptions from '../json/colorMode.json'
+import AppContent from '../layout/AppContent'
+import AppHeader from '../layout/AppHeader'
+import InputGroup from '../layout/InputGroup'
+import { ColorMode } from '../types/color.type'
+const ColorList = lazy(() => import('../components/base/ColorList'))
+const ColorPicker = lazy(() => import('../components/base/ColorPicker'))
+const ExportColorModal = lazy(() => import('../components/colorToner/ExportColorModal'))
+const Dropdown = lazy(() => import('../components/base/forms/Dropdown'))
 
 const ColorToner = () => {
 	const [color, setColor] = useState<string>('#f2f3f4')

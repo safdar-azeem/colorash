@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
-import ColorPicker from '../Components/Base/ColorPicker'
-import Input from '../Components/Base/Forms/Input'
-import AppContent from '../Layout/AppContent'
-import InputGroup from '../Layout/InputGroup'
-import ColorCodeList from '../Components/ColorConvert/ColorCodeList'
-import AppHeader from '../Layout/AppHeader'
+import React, { lazy, useState } from 'react'
+import Input from '../components/base/forms/Input'
+import AppContent from '../layout/AppContent'
+import AppHeader from '../layout/AppHeader'
+import InputGroup from '../layout/InputGroup'
+const ColorPicker = lazy(() => import('../components/base/ColorPicker'))
+const ColorCodeList = lazy(() => import('../components/colorConvert/ColorCodeList'))
 
 const ColorConverter = () => {
 	const [color, setColor] = useState<string>('#285245')

@@ -1,8 +1,8 @@
 import { Icon } from '@iconify/react'
 import { Link, NavLink } from 'react-router-dom'
-import Button from '../Components/Base/Forms/Button'
-import { AppRoutes } from '../Constants/routes.constants'
-import appNavigation from '../Json/appNavigation.json'
+import Button from '../components/base/forms/Button'
+import { AppRoutes } from '../constants/routes.constants'
+import appNavigation from '../json/appNavigation.json'
 
 const Home = () => {
 	return (

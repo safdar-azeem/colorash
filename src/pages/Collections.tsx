@@ -1,14 +1,9 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import FallBackLoader from '../Components/Base/FallBackLoader'
-import Button from '../Components/Base/Forms/Button'
-import CollectionItem from '../Components/Collections/CollectionItem'
-import ExportColorModal from '../Components/ColorToner/ExportColorModal'
-import { AppRoutes } from '../Constants/routes.constants'
-import AppContent from '../Layout/AppContent'
-import AppHeader from '../Layout/AppHeader'
-import templates from '../templates'
-import { Palette, removePalette } from '../Utils/savePalettes'
+import React, { lazy } from 'react'
+import FallBackLoader from '../components/base/FallBackLoader'
+import AppContent from '../layout/AppContent'
+import { Palette, removePalette } from '../utils/savePalettes'
+const ExportColorModal = lazy(() => import('../components/colorToner/ExportColorModal'))
+const CollectionItem = lazy(() => import('../components/collections/CollectionItem'))
 
 const Collections = () => {
 	const [collections, setCollections] = React.useState<Palette[]>([])

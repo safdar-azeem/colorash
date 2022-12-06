@@ -1,5 +1,5 @@
 import { lazy } from 'react'
-import { Frame } from '../Json/frameOpetions.json'
+import { Frame } from '../json/frameOpetions.json'
 
 const UintyWebTemplate = lazy(() => import('./web/Unity'))
 const MalikoWebTemplate = lazy(() => import('./web/Maliko'))

@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import toast from 'react-hot-toast'
-import { generateColorCodes } from '../../Utils/generateColorCodes'
-import Button from '../Base/Forms/Button'
+import { generateColorCodes } from '../../utils/generateColorCodes'
+import Button from '../base/forms/Button'
 
 interface ColorCodesProps {
 	color: string

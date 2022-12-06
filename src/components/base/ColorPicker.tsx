@@ -1,10 +1,10 @@
 import iro from '@jaames/iro'
 import { colord } from 'colord'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { TRadius, TSize } from '../../Types/tailwind.types'
-import { generateRandomColor } from '../../Utils/generateRandomColor'
-import Button from './Forms/Button'
-import Dropdown from './Forms/Dropdown'
+import { TRadius, TSize } from '../../types/tailwind.types'
+import { generateRandomColor } from '../../utils/generateRandomColor'
+import Button from './forms/Button'
+import Dropdown from './forms/Dropdown'
 
 interface ColorPickerProps {
 	color: string

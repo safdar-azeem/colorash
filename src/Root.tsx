@@ -1,7 +1,8 @@
+import { lazy } from 'react'
 import { Outlet } from 'react-router-dom'
-import AppSidebar from './Components/Base/AppSidebar'
-import Button from './Components/Base/Forms/Button'
-import Logo from './Components/Base/Logo'
+const AppSidebar = lazy(() => import('./components/base/AppSidebar'))
+import Button from './components/base/forms/Button'
+import Logo from './components/base/Logo'
 
 const Root = () => {
 	return (

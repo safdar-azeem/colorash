@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react'
 import React, { useCallback, useMemo, useRef, useState } from 'react'
-import useClickOutside from '../../../Hooks/useClickOutside'
-import { TButtonVariant, TRadius, TShadow, TSize } from '../../../Types/tailwind.types'
+import useClickOutside from '../../../hooks/useClickOutside'
+import { TButtonVariant, TRadius, TShadow, TSize } from '../../../types/tailwind.types'
 
 export type DropdownOptions = {
 	key: string

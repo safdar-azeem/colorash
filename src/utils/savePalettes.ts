@@ -1,4 +1,4 @@
-import { Frame } from './../Json/frameOpetions.json'
+import { Frame } from '../json/frameOpetions.json'
 export type Palette = {
 	colors: string[]
 	frame: Frame

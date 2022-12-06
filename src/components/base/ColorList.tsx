@@ -1,4 +1,4 @@
-import { TRadius } from '../../Types/tailwind.types'
+import { TRadius } from '../../types/tailwind.types'
 import ColorItem from './ColorItem'
 
 interface ColorListProps {

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { TInputVariant, TSize } from '../../../Types/tailwind.types'
+import { TInputVariant, TSize } from '../../../types/tailwind.types'
 
 interface InputProps {
 	label?: string

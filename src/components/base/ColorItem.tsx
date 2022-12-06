@@ -2,11 +2,11 @@ import { Icon } from '@iconify/react'
 import { colord } from 'colord'
 import { useEffect, useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
-import { TRadius } from '../../Types/tailwind.types'
-import { generateColorCodes } from '../../Utils/generateColorCodes'
+import { TRadius } from '../../types/tailwind.types'
+import { generateColorCodes } from '../../utils/generateColorCodes'
 import ColorPicker from './ColorPicker'
-import Button from './Forms/Button'
-import Dropdown from './Forms/Dropdown'
+import Button from './forms/Button'
+import Dropdown from './forms/Dropdown'
 
 interface ColorItemProps {
 	color: any

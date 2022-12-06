@@ -1,12 +1,14 @@
 import { colord } from 'colord'
-import { useMemo, useState } from 'react'
-import ColorPicker from '../Components/Base/ColorPicker'
-import Input from '../Components/Base/Forms/Input'
-import AppContent from '../Layout/AppContent'
-import InputGroup from '../Layout/InputGroup'
-import ContrastInfo from '../Components/ContrastChecker/ContrastInfo'
-import ContrastTemplateExample from '../Components/ContrastChecker/ContrastTemplateExample'
-import AppHeader from '../Layout/AppHeader'
+import { lazy, useMemo, useState } from 'react'
+import Input from '../components/base/forms/Input'
+import AppContent from '../layout/AppContent'
+import AppHeader from '../layout/AppHeader'
+import InputGroup from '../layout/InputGroup'
+const ColorPicker = lazy(() => import('../components/base/ColorPicker'))
+const ContrastTemplateExample = lazy(
+	() => import('../components/contrastChecker/ContrastTemplateExample')
+)
+const ContrastInfo = lazy(() => import('../components/contrastChecker/ContrastInfo'))
 
 const ContrastChecker = () => {
 	const [color, setColor] = useState<string>('#000000')
