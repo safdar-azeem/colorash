@@ -2,9 +2,9 @@ import { colord } from 'colord'
 import { lazy, useMemo, useState } from 'react'
 import Input from '../components/reusable/forms/Input'
 import AppContent from '../layouts/AppContent'
-import AppHeader from '../layout/AppHeader'
-import InputGroup from '../layout/InputGroup'
-const ColorPicker = lazy(() => import('../components/base/ColorPicker'))
+import AppHeader from '../layouts/AppHeader'
+import InputGroup from '../layouts/InputGroup'
+const ColorPicker = lazy(() => import('../components/reusable/ColorPicker'))
 const ContrastTemplateExample = lazy(
 	() => import('../components/contrastChecker/ContrastTemplateExample')
 )

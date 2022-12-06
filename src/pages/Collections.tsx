@@ -3,7 +3,7 @@ import FallBackLoader from '../components/reusable/FallBackLoader'
 import AppContent from '../layouts/AppContent'
 import { Palette, removePalette } from '../utils/savePalettes'
 const ExportColorModal = lazy(() => import('../components/reusable/modals/ExportColorModal'))
-const CollectionItem = lazy(() => import('../components/collections/CollectionItem'))
+const CollectionItem = lazy(() => import('../components/collection/CollectionItem'))
 
 const Collections = () => {
 	const [collections, setCollections] = React.useState<Palette[]>([])
