@@ -1,6 +1,6 @@
 import { colord } from 'colord'
-import ReactDOMServer from 'react-dom/server'
 import { useEffect, useState } from 'react'
+import ReactDOMServer from 'react-dom/server'
 import toast from 'react-hot-toast'
 import colorCodesOptions from '../../json/colorCodes.json'
 import colorFormatOptions from '../../json/ColorFormat.json'
@@ -8,10 +8,7 @@ import { ColorFormat } from '../../types/color.type'
 import FigmaSvgPalette from '../base/FigmaSvgPalette'
 import Button from '../base/forms/Button'
 import Dropdown from '../base/forms/Dropdown'
-// @ts-ignore
-import { Code, InlineCode } from 'react-prism-code'
-import 'prismjs/themes/prism-solarizedlight.css'
-import 'prismjs/components/prism-jsx'
+import HighlightCode from '../base/HighlightCode'
 
 interface ExportColorModalProps {
 	colorsPalette: string[]
@@ -90,7 +87,7 @@ const ExportColorModal = ({ colorsPalette, generateColorFor }: ExportColorModalP
 				<label
 					className='modal-box p-0 rounded-t-xl rounded-b-xl relative min-h-[80vh] min-w-[50vw]'
 					htmlFor=''>
-					<header className='flex p-3 px-5 rounded-t bg-gray-200 justify-between items-center '>
+					<header className='flex p-3 px-5 rounded-t bg-gray-200 justify-between items-center sticky top-0  z-[1000] '>
 						<h2 className='text-fs-3 font-bold text-gray-900'>Export your theme</h2>
 						<Button
 							leftIcon='charm:cross'
@@ -121,13 +118,16 @@ const ExportColorModal = ({ colorsPalette, generateColorFor }: ExportColorModalP
 							/>
 						</section>
 						{colorFormat === 'figma' ? (
-							<div className='text-fs-0'>
-								<FigmaSvgPalette colors={colorsPalette} />
-								<Code lang='jsx'>
-									{ReactDOMServer.renderToStaticMarkup(
-										<FigmaSvgPalette colors={colorsPalette} />
-									).replaceAll('>', '> \n')}
-								</Code>
+							<div
+								className='text-fs-0  overflow-auto'
+								style={{ height: 'calc(100vh - 300px)' }}>
+								<div className='rounded-xl overflow-auto max-w-full w-max'>
+									<FigmaSvgPalette colors={colorsPalette} />
+								</div>
+								<HighlightCode
+									component={<FigmaSvgPalette colors={colorsPalette} />}
+									className='mt-4'
+								/>
 							</div>
 						) : (
 							<textarea
