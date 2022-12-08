@@ -8,7 +8,7 @@ import InputGroup from '../layouts/InputGroup'
 const ColorList = lazy(() => import('../components/reusable/ColorList'))
 const ColorPicker = lazy(() => import('../components/reusable/ColorPicker'))
 
-const ColorToner = () => {
+const SolidColors = () => {
 	const { colorsPalette, bgColor, handleBgColorChange } = useContext(SolidColorsContext)
 	return (
 		<>
@@ -48,6 +48,6 @@ const ColorToner = () => {
 
 export default () => (
 	<SolidColorsProvider>
-		<ColorToner />
+		<SolidColors />
 	</SolidColorsProvider>
 )
