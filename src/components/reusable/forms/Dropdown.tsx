@@ -1,14 +1,8 @@
 import { Icon } from '@iconify/react'
 import React, { useCallback, useMemo, useRef, useState } from 'react'
 import useClickOutside from '../../../hooks/useClickOutside'
+import { DropdownOptions } from '../../../types/dropdown.type'
 import { TButtonVariant, TRadius, TShadow, TSize } from '../../../types/tailwind.types'
-
-export type DropdownOptions = {
-	key: string
-	label: string
-	value: string
-	disabled?: boolean
-}
 
 interface DropdownProps {
 	options?: DropdownOptions[]
