@@ -80,7 +80,7 @@ const PaletteGenerator = () => {
 	return (
 		<div>
 			<AppHeader>
-				<InputGroup minWidth={250}>
+				<InputGroup minWidth={colors.length <= 2 ? (colors.length + 1) * 90 : colors.length * 75}>
 					<div className='w-full'>
 						<label className='label'>Color Palette</label>
 						<section className='border-base-300 border flex justify-between items-center px-3 gap-x-3 rounded-md py-2 h-[45px] text-gray-200'>

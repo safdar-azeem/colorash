@@ -58,7 +58,7 @@ const ColorToner = () => {
 
 	return (
 		<>
-			<AppHeader>
+			<AppHeader className='static md:sticky'>
 				<InputGroup minWidth={185}>
 					<Input
 						label='Background'

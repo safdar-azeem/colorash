@@ -4,6 +4,7 @@ import ReactDOMServer from 'react-dom/server'
 import toast from 'react-hot-toast'
 import colorCodesOptions from '../../../jsons/colorCodes.json'
 import colorFormatOptions from '../../../jsons/ColorFormat.json'
+import InputGroup from '../../../layouts/InputGroup'
 import { ColorFormat } from '../../../types/color.type'
 import FigmaSvgPalette from '../FigmaSvgPalette'
 import Button from '../forms/Button'
@@ -98,25 +99,30 @@ const ExportColorModal = ({ colorsPalette, generateColorFor }: ExportColorModalP
 						/>
 					</header>
 					<main className='px-4 pb-3'>
-						<section className='my-4 flex gap-2'>
+						<InputGroup
+							className='my-4 flex gap-2'
+							minWidth={150}>
 							<Button
 								text='Copy Code'
 								onClick={handleCopy}
 								leftIcon='material-symbols:content-copy'
+								fullWidth
 							/>
 							{colorFormat !== 'figma' && (
 								<Dropdown
 									options={colorCodesOptions}
 									value={colorCode}
 									onChange={setColorCode as any}
+									minButtonWidth='100%'
 								/>
 							)}
 							<Dropdown
 								options={colorFormatOptions}
 								value={colorFormat}
 								onChange={setColorFormat}
+								minButtonWidth='100%'
 							/>
-						</section>
+						</InputGroup>
 						{colorFormat === 'figma' ? (
 							<div
 								className='text-fs-0  overflow-auto'

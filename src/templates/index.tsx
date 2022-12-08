@@ -4,6 +4,7 @@ import { Frame } from '../jsons/frameOpetions.json'
 const UintyWebTemplate = lazy(() => import('./website/Unity'))
 const MalikoWebTemplate = lazy(() => import('./website/Maliko'))
 const Folio = lazy(() => import('./website/Folio'))
+const RocketX = lazy(() => import('./website/RocketX'))
 
 type TemplateProps = {
 	[key in Frame]: {
@@ -23,11 +24,16 @@ const templates: TemplateProps = {
 			backDropColor: '#ebedef',
 		},
 		'1': {
+			component: (props: any) => <RocketX {...props} />,
+			colors: ['#1B867F', '#E1E0FF', '#FFE4B0', '#C3EDFF'],
+			backDropColor: '#D0E2F2',
+		},
+		'2': {
 			component: (props: any) => <MalikoWebTemplate {...props} />,
 			colors: ['#E29044', '#D6E3DD'],
 			backDropColor: '#E5E0DA',
 		},
-		'2': {
+		'3': {
 			component: (props: any) => <Folio {...props} />,
 			colors: ['#448ACA'],
 			backDropColor: '#d6e2e5',

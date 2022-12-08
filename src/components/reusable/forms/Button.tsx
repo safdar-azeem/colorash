@@ -22,6 +22,7 @@ interface ButtonProps {
 	htmlFor?: string
 	className?: string
 	disabled?: boolean
+	ref?: any
 }
 
 const Button = ({
@@ -45,11 +46,19 @@ const Button = ({
 	htmlFor,
 	className,
 	disabled = false,
+	ref,
 }: ButtonProps) => {
 	return (
 		<div>
-			{label && <label className='label'>{label}</label>}
+			{label && (
+				<label
+					className='label'
+					ref={ref}>
+					{label}
+				</label>
+			)}
 			<label
+				ref={ref}
 				htmlFor={htmlFor}
 				onClick={disabled ? () => {} : onClick}
 				style={{ color: color }}

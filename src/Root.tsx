@@ -1,22 +1,35 @@
-import { lazy } from 'react'
+import { lazy, useRef, useState } from 'react'
 import { Outlet } from 'react-router-dom'
-const AppSidebar = lazy(() => import('./components/reusable/AppSidebar'))
 import Button from './components/reusable/forms/Button'
 import Logo from './components/reusable/Logo'
+import AppContent from './layouts/AppContent'
+const AppSidebar = lazy(() => import('./components/reusable/AppSidebar'))
 
 const Root = () => {
+	const sidebarRef = useRef(null)
+	const [isOpen, setIsOpen] = useState(false)
+
 	return (
-		<div className='flex'>
-			<div className='hidden lg:flex'>
-				<AppSidebar />
-			</div>
-			<div className='lg:pl-[235px] pl-0 w-full min-h-screen'>
-				<div className='flex lg:hidden mb-4 justify-between items-center  '>
-					<Logo />
-					<Button leftIcon='octicon:three-bars-16' />
+		<div
+			className='flex'
+			ref={sidebarRef}>
+			<aside className={`${!isOpen && 'hidden'} lg:flex w-screen absolute left-0 bg-black `}>
+				<AppSidebar isOpen={isOpen} />
+			</aside>
+			<section className='lg:pl-[235px] pl-0 w-full min-h-screen'>
+				<AppContent className='block lg:hidden sticky top-0 z-[199] py-5 my-0 bg-base-100'>
+					<div className='flex lg:hidden justify-between items-center '>
+						<Logo />
+						<Button
+							leftIcon='octicon:three-bars-16'
+							onClick={() => setIsOpen(!isOpen)}
+						/>
+					</div>
+				</AppContent>
+				<div onClick={() => isOpen && setIsOpen(false)}>
+					<Outlet />
 				</div>
-				<Outlet />
-			</div>
+			</section>
 		</div>
 	)
 }

@@ -47,7 +47,7 @@ const ColorItem = ({ color, radius }: ColorItemProps) => {
 
 	return (
 		<div
-			className={`rounded-${radius} p-2 fadeIn h-[125px] text-nfs-1}`}
+			className={`rounded-${radius} p-2 fadeIn h-[125px] text-nfs-1} `}
 			style={{
 				backgroundColor: colorValue,
 				zIndex: isDropdownOpen || isColorPickerOpen ? 2 : 0,
