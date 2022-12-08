@@ -1,60 +1,30 @@
-import { colord, random } from 'colord'
-import { lazy, useEffect, useMemo, useState } from 'react'
+import { lazy, useContext } from 'react'
 import Button from '../components/reusable/forms/Button'
 import Input from '../components/reusable/forms/Input'
+import { ColorTonerContext } from '../context/colorToner/Context'
+import ColorTonerProvider from '../context/colorToner/Provider'
 import colorModeOptions from '../jsons/colorMode.json'
 import AppContent from '../layouts/AppContent'
 import AppHeader from '../layouts/AppHeader'
 import InputGroup from '../layouts/InputGroup'
-import { ColorMode } from '../types/color.type'
 const ColorList = lazy(() => import('../components/reusable/ColorList'))
 const ColorPicker = lazy(() => import('../components/reusable/ColorPicker'))
 const ExportColorModal = lazy(() => import('../components/reusable/modals/ExportColorModal'))
 const Dropdown = lazy(() => import('../components/reusable/forms/Dropdown'))
 
 const ColorToner = () => {
-	const [color, setColor] = useState<string>('#f2f3f4')
-	const [bgColor, setBgColor] = useState('#FCFCFD')
-	const [quantity, setQuantity] = useState(24)
-	const [colorMode, setColorMode] = useState<ColorMode>('shades')
-
-	const handleBgColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { value } = e.target
-		setBgColor(value)
-	}
-
-	const handleColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { value } = e.target
-		setColor(value)
-	}
-
-	const handleDropdownChange = (value: string) => {
-		setColorMode(value as ColorMode)
-	}
-
-	const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { value } = e.target
-		if (parseInt(value) > 100 || parseInt(value) < 2) return
-		setQuantity(parseInt(value))
-	}
-
-	const handleRandom = () => setColor(random().toHex())
-
-	const isLight = colord(bgColor).isLight()
-
-	useEffect(() => {
-		document.body.style.backgroundColor = bgColor
-		return () => {
-			document.body.style.backgroundColor = ''
-		}
-	}, [bgColor])
-
-	const colorsPalette: any[] = useMemo(() => {
-		const baseColor = colord(color)
-		if (colorMode === 'tints') return baseColor.tints(quantity)
-		if (colorMode === 'shades') return baseColor.shades(quantity)
-		return baseColor.tones(quantity)
-	}, [color, quantity, colorMode])
+	const {
+		color,
+		bgColor,
+		quantity,
+		colorMode,
+		colorsPalette,
+		handleBgColorChange,
+		handleColorChange,
+		handleDropdownChange,
+		handleQuantityChange,
+		handleRandom,
+	} = useContext(ColorTonerContext)
 
 	return (
 		<>
@@ -71,7 +41,7 @@ const ColorToner = () => {
 								saturation
 								box
 								hue
-								onChange={(color) => setBgColor(color)}
+								onChange={(color) => handleBgColorChange({ target: { value: color } } as any)}
 								size='xs'
 								direction='none'
 							/>
@@ -88,7 +58,7 @@ const ColorToner = () => {
 								saturation
 								box
 								hue
-								onChange={(color) => setColor(color)}
+								onChange={(color) => handleColorChange({ target: { value: color } } as any)}
 								size='xs'
 								direction='none'
 							/>
@@ -137,4 +107,8 @@ const ColorToner = () => {
 	)
 }
 
-export default ColorToner
+export default () => (
+	<ColorTonerProvider>
+		<ColorToner />
+	</ColorTonerProvider>
+)

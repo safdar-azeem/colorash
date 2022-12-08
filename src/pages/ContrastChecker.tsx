@@ -1,6 +1,7 @@
-import { colord } from 'colord'
-import { lazy, useMemo, useState } from 'react'
+import { lazy, useContext } from 'react'
 import Input from '../components/reusable/forms/Input'
+import { ContrastCheckerContext } from '../context/contrastChecker/Context'
+import ContrastCheckerProvider from '../context/contrastChecker/Provider'
 import AppContent from '../layouts/AppContent'
 import AppHeader from '../layouts/AppHeader'
 import InputGroup from '../layouts/InputGroup'
@@ -11,22 +12,15 @@ const ContrastTemplateExample = lazy(
 const ContrastInfo = lazy(() => import('../components/contrastChecker/ContrastInfo'))
 
 const ContrastChecker = () => {
-	const [color, setColor] = useState<string>('#000000')
-	const [bgColor, setBgColor] = useState('#F1EEE5')
-
-	const handleBgColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { value } = e.target
-		setBgColor(value)
-	}
-
-	const handleColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { value } = e.target
-		setColor(value)
-	}
-
-	const largeTextColor = useMemo(() => colord(color).toHex(), [color])
-	const normalTextColor = useMemo(() => colord(color).lighten(0.2).toHex(), [color])
-	const iconTextColor = useMemo(() => colord(color).lighten(0.3).toHex(), [color])
+	const {
+		bgColor,
+		color,
+		largeTextColor,
+		normalTextColor,
+		iconTextColor,
+		handleBgColorChange,
+		handleColorChange,
+	} = useContext(ContrastCheckerContext)
 
 	return (
 		<>
@@ -45,7 +39,7 @@ const ContrastChecker = () => {
 								hue
 								size='xs'
 								direction='left'
-								onChange={(color) => setBgColor(color)}
+								onChange={(color) => handleBgColorChange({ target: { value: color } } as any)}
 							/>
 						}
 					/>
@@ -62,7 +56,7 @@ const ContrastChecker = () => {
 								hue
 								size='xs'
 								direction='left'
-								onChange={(color) => setColor(color)}
+								onChange={(color) => handleColorChange({ target: { value: color } } as any)}
 							/>
 						}
 					/>
@@ -87,4 +81,8 @@ const ContrastChecker = () => {
 	)
 }
 
-export default ContrastChecker
+export default () => (
+	<ContrastCheckerProvider>
+		<ContrastChecker />
+	</ContrastCheckerProvider>
+)

@@ -1,81 +1,29 @@
-import { lazy, useEffect, useMemo, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { lazy, useContext } from 'react'
 import ColorPicker from '../components/reusable/ColorPicker'
 import Button from '../components/reusable/forms/Button'
 import Dropdown from '../components/reusable/forms/Dropdown'
-import { AppRoutes } from '../constants/routes.constants'
-import frameOptions, { Frame } from '../jsons/frameOpetions.json'
+import { PaletteGeneratorContext } from '../context/paletteGenerator/Context'
+import PaletteGeneratorProvider from '../context/paletteGenerator/Provider'
+import frameOptions from '../jsons/frameOpetions.json'
 import AppContent from '../layouts/AppContent'
 import AppHeader from '../layouts/AppHeader'
 import InputGroup from '../layouts/InputGroup'
-import templates from '../templates'
-import { generateRandomColor } from '../utils/generateRandomColor'
-import { checkIsAlreadySaved, savePalette } from '../utils/savePalettes'
 const ExportColorModal = lazy(() => import('../components/reusable/modals/ExportColorModal'))
 
 const PaletteGenerator = () => {
-	const navigate = useNavigate()
-	const { '*': params } = useParams()
-
-	const [isAlreadySaved, setIsAlreadySaved] = useState(false)
-
-	const { frame, index, frameColors } = useMemo(() => {
-		const [frame, index, colors] = params?.split('/') || []
-		const frameColors = colors ? colors?.split('-').map((color) => `#${color}`) : []
-		// @ts-ignore
-		setIsAlreadySaved(checkIsAlreadySaved({ frame, colors: frameColors, index }))
-		return { frame, index, frameColors }
-	}, [params])
-
-	const [currentFrame, setCurrentFrame] = useState<Frame>((frame as Frame) || 'Website')
-	const [currentFrameIndex, setCurrentFrameIndex] = useState(Number(index) || 0)
-	const [colors, setColors] = useState(
-		frameColors.length ? frameColors : templates[currentFrame][currentFrameIndex].colors
-	)
-
-	const totalFrameTemplates = useMemo(
-		() => Object.keys(templates[currentFrame]).length,
-		[currentFrame]
-	)
-
-	const template = useMemo(() => {
-		return templates[currentFrame][currentFrameIndex]
-	}, [currentFrame, currentFrameIndex])
-
-	const handleFrameIndexChange = (index: number) => {
-		if (index >= 0 && index <= totalFrameTemplates) {
-			setCurrentFrameIndex(index)
-			setColors(templates[currentFrame][index].colors)
-		}
-	}
-
-	const handleColorChange = (color: string, index: number) => {
-		const newColors = [...colors]
-		newColors[index] = color
-		setColors(newColors)
-	}
-
-	const refreshColors = () => setColors(generateRandomColor(colors.length, colors))
-
-	const handleFrameChange = (value: string) => setCurrentFrame(value as Frame)
-
-	const handleSave = () => {
-		setIsAlreadySaved(
-			savePalette({
-				frame: currentFrame,
-				index: currentFrameIndex,
-				colors,
-			})
-		)
-	}
-
-	useEffect(() => {
-		navigate(
-			`${AppRoutes.PaletteGenerator}/${currentFrame}/${currentFrameIndex}/${colors
-				.join('-')
-				.replaceAll('#', '')}`
-		)
-	}, [currentFrame, currentFrameIndex, colors])
+	const {
+		currentFrame,
+		currentFrameIndex,
+		colors,
+		template,
+		totalTemplates,
+		handleFrameIndexChange,
+		handleColorChange,
+		refreshColors,
+		handleFrameChange,
+		handleSave,
+		isAlreadySaved,
+	} = useContext(PaletteGeneratorContext)
 
 	return (
 		<div>
@@ -92,7 +40,7 @@ const PaletteGenerator = () => {
 								onClick={refreshColors}
 								iconSize='text-fs-5'
 							/>
-							{colors.map((color, index) => (
+							{colors.map((color: string, index: number) => (
 								<ColorPicker
 									key={index}
 									color={color}
@@ -128,7 +76,7 @@ const PaletteGenerator = () => {
 						variant='outline'
 						options={frameOptions}
 						value={currentFrame}
-						onChange={handleFrameChange}
+						onChange={handleFrameChange as any}
 						minButtonWidth={200}
 					/>
 				</InputGroup>
@@ -148,7 +96,7 @@ const PaletteGenerator = () => {
 						iconSize='xl'
 						size='sm'
 						isCircle
-						disabled={currentFrameIndex === totalFrameTemplates - 1}
+						disabled={currentFrameIndex === totalTemplates - 1}
 						onClick={() => handleFrameIndexChange(currentFrameIndex + 1)}
 					/>
 				</section>
@@ -170,4 +118,8 @@ const PaletteGenerator = () => {
 	)
 }
 
-export default PaletteGenerator
+export default () => (
+	<PaletteGeneratorProvider>
+		<PaletteGenerator />
+	</PaletteGeneratorProvider>
+)
