@@ -55,6 +55,7 @@ export const PaletteGeneratorProvider = ({ children }: { children: React.ReactNo
 		handleChangeFrame: (frame: Frame) => {
 			setFrame(frame)
 			setFrameIndex(0)
+			setPalette(templates[frame][0].colors)
 		},
 		handleInitializeFromURL: () =>
 			navigate(
@@ -66,6 +67,7 @@ export const PaletteGeneratorProvider = ({ children }: { children: React.ReactNo
 			const index = type === 'decrement' ? frameIndex - 1 : frameIndex + 1
 			if (index >= 0 && index <= totalTemplates) {
 				setFrameIndex(Number(index))
+				setPalette(templates[frame][index].colors)
 			}
 		},
 		handleSavePalette: () =>
