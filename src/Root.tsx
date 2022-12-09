@@ -17,7 +17,9 @@ const Root = () => {
 				<AppSidebar isOpen={isOpen} />
 			</aside>
 			<section className='lg:pl-[235px] pl-0 w-full min-h-screen'>
-				<AppContent className='block lg:hidden sticky top-0 z-[199] py-5 my-[0px] bg-base-100'>
+				<AppContent
+					className='block lg:hidden sticky top-0 z-[199] py-5 bg-base-100'
+					style={{ margin: 0 }}>
 					<div className='flex lg:hidden justify-between items-center '>
 						<Logo />
 						<Button
