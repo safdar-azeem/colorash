@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { AppRoutes } from '../../constants/routes.constants'
 import frameOptions, { Frame } from '../../jsons/frameOpetions.json'
@@ -80,6 +80,11 @@ export const PaletteGeneratorProvider = ({ children }: { children: React.ReactNo
 		handleSavePalette: () =>
 			setIsPaletteAlreadySaved(savePalette({ frame, index: frameIndex, colors: palette })),
 	}
+
+	useEffect(() => {
+		actions.handleInitializeFromURL()
+		return () => {}
+	}, [frame, frameIndex, palette])
 
 	return (
 		<PaletteGeneratorContext.Provider
