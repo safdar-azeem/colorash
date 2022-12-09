@@ -148,7 +148,7 @@ const ColorPicker = ({
 								leftIcon='charm:refresh'
 								iconColor='text-gray-600'
 								fullWidth={!withInput}
-								iconSize='text-fs-5'
+								iconSize='xs'
 								onClick={() => handleColorChange(generateRandomColor(1)[0], true)}
 							/>
 						)}
