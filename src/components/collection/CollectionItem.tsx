@@ -28,7 +28,7 @@ const CollectionItem = ({ collection, handleRemovePalette, setSelectedPalette }:
 						collection.index
 					}/${collection.colors.join('-').replaceAll('#', '')}`}>
 					{template.component({
-						colors: collection.colors,
+						palette: collection.colors,
 					})}
 				</Link>
 				<div className=' absolute  top-right'>
