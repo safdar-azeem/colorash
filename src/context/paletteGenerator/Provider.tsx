@@ -1,87 +1,93 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { AppRoutes } from '../../constants/routes.constants'
-import { Frame } from '../../jsons/frameOpetions.json'
-import templates from '../../templates'
+import frameOptions, { Frame } from '../../jsons/frameOpetions.json'
+import templates, { TemplateType } from '../../templates'
 import { generateRandomColor } from '../../utils/generateRandomColor'
-import { checkIsAlreadySaved, savePalette } from '../../utils/savePalettes'
-import { PaletteGeneratorContext } from './Context'
+import { isPaletteSaved, savePalette } from '../../utils/savePalettes'
+import { initialContext, PaletteActionsType, PaletteGeneratorContext } from './Context'
 
 export const PaletteGeneratorProvider = ({ children }: { children: React.ReactNode }) => {
-	const navigate = useNavigate()
 	const { '*': params } = useParams()
+	const { _Frame, _FrameIndex, _PaletteColors, _IsPaletteAlreadySaved } = useMemo((): any => {
+		const [frame, frameIndex, colors] =
+			params?.split('/') ||
+			([initialContext.frame, initialContext.frameIndex, initialContext.palette] as any)
 
-	const [isAlreadySaved, setIsAlreadySaved] = useState(false)
+		const _Frame = frameOptions.find((item) => item.value === frame) ? frame : initialContext.frame
+		const _FrameIndex = templates[frame as Frame]?.[frameIndex]
+			? frameIndex
+			: initialContext.frameIndex
+		const _PaletteColors =
+			colors && colors.includes('-')
+				? colors.split('-').map((color: string) => `#${color}`)
+				: initialContext.palette
 
-	const { frame, index, frameColors } = useMemo(() => {
-		const [frame, index, colors] = params?.split('/') || []
-		const frameColors = colors ? colors?.split('-').map((color) => `#${color}`) : []
-		// @ts-ignore
-		setIsAlreadySaved(checkIsAlreadySaved({ frame, colors: frameColors, index }))
-		return { frame, index, frameColors }
-	}, [params])
+		const _IsPaletteAlreadySaved = isPaletteSaved({
+			frame: _Frame,
+			index: _FrameIndex,
+			colors: _PaletteColors,
+		} as any)
 
-	const [currentFrame, setCurrentFrame] = useState<Frame>((frame as Frame) || 'Website')
-	const [currentFrameIndex, setCurrentFrameIndex] = useState(Number(index) || 0)
-	const [colors, setColors] = useState(
-		frameColors.length ? frameColors : templates[currentFrame][currentFrameIndex].colors
-	)
-
-	const totalTemplates = useMemo(() => Object.keys(templates[currentFrame]).length, [currentFrame])
-
-	const template = useMemo(() => {
-		return templates[currentFrame][currentFrameIndex]
-	}, [currentFrame, currentFrameIndex])
-
-	const handleFrameIndexChange = (index: number) => {
-		if (index >= 0 && index <= totalTemplates) {
-			setCurrentFrameIndex(index)
-			setColors(templates[currentFrame][index].colors)
+		return {
+			_Frame,
+			_FrameIndex,
+			_PaletteColors,
+			_IsPaletteAlreadySaved,
 		}
-	}
+	}, [])
 
-	const handleColorChange = (color: string, index: number) => {
-		const newColors = [...colors]
-		newColors[index] = color
-		setColors(newColors)
-	}
+	const [frame, setFrame] = useState<Frame>(_Frame)
+	const [frameIndex, setFrameIndex] = useState<number>(_FrameIndex)
+	const [palette, setPalette] = useState<string[]>(_PaletteColors)
+	const [isPaletteAlreadySaved, setIsPaletteAlreadySaved] =
+		useState<boolean>(_IsPaletteAlreadySaved)
+	const totalTemplates = useMemo(() => Object.keys(templates[frame]).length - 1, [frame])
+	const template: TemplateType = useMemo(() => templates[frame][frameIndex], [frame, frameIndex])
+	const navigate = useNavigate()
 
-	const refreshColors = () => setColors(generateRandomColor(colors.length, colors))
-
-	const handleFrameChange = (value: string) => setCurrentFrame(value as Frame)
-
-	const handleSave = () => {
-		setIsAlreadySaved(
-			savePalette({
-				frame: currentFrame,
-				index: currentFrameIndex,
-				colors,
-			})
-		)
+	const actions: PaletteActionsType = {
+		handleChangePaletteColor: (index: number, color: string) => {
+			const newPalette = [...palette]
+			newPalette[index] = color
+			setPalette(newPalette)
+		},
+		handleChangeFrame: (frame: Frame) => {
+			setFrame(frame)
+			setFrameIndex(0)
+		},
+		handleInitializeFromURL: () =>
+			navigate(
+				`${AppRoutes.PaletteGenerator}/${frame}/${frameIndex}/${palette
+					.join('-')
+					.replaceAll('#', '')}`
+			),
+		handleChangeFrameIndex: (type: 'decrement' | 'increment') => {
+			const index = type === 'decrement' ? frameIndex - 1 : frameIndex + 1
+			if (index >= 0 && index <= totalTemplates) {
+				setFrameIndex(Number(index))
+			}
+		},
+		handleSavePalette: () =>
+			setIsPaletteAlreadySaved(savePalette({ frame, index: frameIndex, colors: palette })),
+		handleRefreshPalette: () => setPalette(generateRandomColor(palette.length, palette)),
 	}
 
 	useEffect(() => {
-		navigate(
-			`${AppRoutes.PaletteGenerator}/${currentFrame}/${currentFrameIndex}/${colors
-				.join('-')
-				.replaceAll('#', '')}`
-		)
-	}, [currentFrame, currentFrameIndex, colors])
+		actions.handleInitializeFromURL()
+		return () => {}
+	}, [frame, frameIndex, palette])
 
 	return (
 		<PaletteGeneratorContext.Provider
 			value={{
-				currentFrame,
-				currentFrameIndex,
+				palette,
+				frame,
+				frameIndex,
 				template,
 				totalTemplates,
-				colors,
-				handleFrameIndexChange,
-				handleColorChange,
-				refreshColors,
-				handleFrameChange,
-				handleSave,
-				isAlreadySaved,
+				isPaletteAlreadySaved,
+				actions,
 			}}>
 			{children}
 		</PaletteGeneratorContext.Provider>

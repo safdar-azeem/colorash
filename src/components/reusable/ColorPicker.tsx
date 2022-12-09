@@ -107,8 +107,6 @@ const ColorPicker = ({
 		})
 	}, [isOpen])
 
-	console.log('colorPicker', colorPicker)
-
 	return (
 		<Dropdown
 			onClose={onClose}

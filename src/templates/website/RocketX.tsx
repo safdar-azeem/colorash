@@ -2,14 +2,14 @@ import { colord } from 'colord'
 import { useMemo } from 'react'
 
 interface Props {
-	colors: string[]
+	palette: string[]
 }
 
-const RocketX = ({ colors }: Props) => {
-	const colorOne = colors[0]
-	const colorTwo = colors[1]
-	const colorThree = colors[2]
-	const colorFour = colors[3]
+const RocketX = ({ palette }: Props) => {
+	const colorOne = palette[0]
+	const colorTwo = palette[1]
+	const colorThree = palette[2]
+	const colorFour = palette[3]
 
 	const colorOneText = useMemo(() => (colord(colorOne).isDark() ? '#fff' : '#000'), [colorOne])
 	const colorTwoText = useMemo(() => (colord(colorTwo).isDark() ? '#fff' : '#000'), [colorTwo])

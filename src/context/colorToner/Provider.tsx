@@ -1,42 +1,13 @@
 import { colord, random } from 'colord'
 import React, { useEffect, useMemo, useState } from 'react'
 import { ColorMode } from '../../types/color.type'
-import { ColorTonerContext, initialColorTonerState } from './Context'
+import { ColorTonerActionsType, ColorTonerContext, initialColorToner } from './Context'
 
 export const ColorTonerProvider = ({ children }: { children: React.ReactNode }) => {
-	const [color, setColor] = useState<string>(initialColorTonerState.color)
-	const [bgColor, setBgColor] = useState(initialColorTonerState.bgColor)
-	const [quantity, setQuantity] = useState(initialColorTonerState.quantity)
-	const [colorMode, setColorMode] = useState<ColorMode>(initialColorTonerState.colorMode)
-
-	const handleBgColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { value } = e.target
-		setBgColor(value)
-	}
-
-	const handleColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { value } = e.target
-		setColor(value)
-	}
-
-	const handleDropdownChange = (value: string) => {
-		setColorMode(value as ColorMode)
-	}
-
-	const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { value } = e.target
-		if (parseInt(value) > 100 || parseInt(value) < 2) return
-		setQuantity(parseInt(value))
-	}
-
-	const handleRandom = () => setColor(random().toHex())
-
-	useEffect(() => {
-		document.body.style.backgroundColor = bgColor
-		return () => {
-			document.body.style.backgroundColor = ''
-		}
-	}, [bgColor])
+	const [color, setColor] = useState<string>(initialColorToner.color)
+	const [bgColor, setBgColor] = useState(initialColorToner.bgColor)
+	const [quantity, setQuantity] = useState(initialColorToner.quantity)
+	const [colorMode, setColorMode] = useState<ColorMode>(initialColorToner.colorMode)
 
 	const colorsPalette: any[] = useMemo(() => {
 		const baseColor = colord(color)
@@ -44,6 +15,25 @@ export const ColorTonerProvider = ({ children }: { children: React.ReactNode }) 
 		if (colorMode === 'shades') return baseColor.shades(quantity)
 		return baseColor.tones(quantity)
 	}, [color, quantity, colorMode])
+
+	const actions: ColorTonerActionsType = {
+		handleBgColorChange: (color: string) => setBgColor(color),
+		handleColorChange: (color: string) => setColor(color),
+		handleDropdownChange: (value: string) => setColorMode(value as ColorMode),
+		handleRefreshColor: () => setColor(random().toHex()),
+		handleQuantityChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+			const { value } = e.target
+			if (parseInt(value) > 100 || parseInt(value) < 2) return
+			setQuantity(parseInt(value))
+		},
+	}
+
+	useEffect(() => {
+		document.body.style.backgroundColor = bgColor
+		return () => {
+			document.body.style.backgroundColor = ''
+		}
+	}, [bgColor])
 
 	return (
 		<ColorTonerContext.Provider
@@ -53,11 +43,7 @@ export const ColorTonerProvider = ({ children }: { children: React.ReactNode }) 
 				quantity,
 				colorMode,
 				colorsPalette,
-				handleBgColorChange,
-				handleColorChange,
-				handleDropdownChange,
-				handleQuantityChange,
-				handleRandom,
+				actions: actions,
 			}}>
 			{children}
 		</ColorTonerContext.Provider>

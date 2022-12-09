@@ -12,15 +12,8 @@ const ContrastTemplateExample = lazy(
 const ContrastInfo = lazy(() => import('../components/contrastChecker/ContrastInfo'))
 
 const ContrastChecker = () => {
-	const {
-		bgColor,
-		color,
-		largeTextColor,
-		normalTextColor,
-		iconTextColor,
-		handleBgColorChange,
-		handleColorChange,
-	} = useContext(ContrastCheckerContext)
+	const { bgColor, color, largeTextColor, normalTextColor, iconTextColor, actions } =
+		useContext(ContrastCheckerContext)
 
 	return (
 		<>
@@ -29,7 +22,7 @@ const ContrastChecker = () => {
 					<Input
 						label='Background'
 						value={bgColor}
-						onChange={handleBgColorChange}
+						onChange={(e) => actions.handleBgColorChange(e.target.value)}
 						rightSlot={
 							<ColorPicker
 								color={bgColor}
@@ -39,14 +32,14 @@ const ContrastChecker = () => {
 								hue
 								size='xs'
 								direction='left'
-								onChange={(color) => handleBgColorChange({ target: { value: color } } as any)}
+								onChange={actions.handleBgColorChange}
 							/>
 						}
 					/>
 					<Input
 						label='Foreground'
 						value={color}
-						onChange={handleColorChange}
+						onChange={(e) => actions.handleColorChange(e.target.value)}
 						rightSlot={
 							<ColorPicker
 								color={color}
@@ -56,7 +49,7 @@ const ContrastChecker = () => {
 								hue
 								size='xs'
 								direction='left'
-								onChange={(color) => handleColorChange({ target: { value: color } } as any)}
+								onChange={actions.handleColorChange}
 							/>
 						}
 					/>

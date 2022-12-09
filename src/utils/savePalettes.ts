@@ -5,7 +5,7 @@ export type Palette = {
 	index: number
 }
 
-export const checkIsAlreadySaved = (palette: Palette) => {
+export const isPaletteSaved = (palette: Palette) => {
 	const savedPalettes = localStorage.getItem('savedPalettes')
 	if (savedPalettes) {
 		const parsedPalettes = JSON.parse(savedPalettes)
@@ -38,7 +38,7 @@ export const removePalette = (palette: Palette) => {
 
 export const savePalette = (palette: Palette): boolean => {
 	const { colors, frame, index } = palette
-	let isPaletteSaved = false
+	let isSaved = false
 	const data = {
 		frame: frame,
 		index: index,
@@ -48,18 +48,18 @@ export const savePalette = (palette: Palette): boolean => {
 	const savedPalettes = localStorage.getItem('savedPalettes')
 	if (savedPalettes) {
 		const parsedPalettes = JSON.parse(savedPalettes)
-		if (checkIsAlreadySaved(palette)) {
+		if (isPaletteSaved(palette)) {
 			removePalette(palette)
-			isPaletteSaved = false
+			isSaved = false
 		} else {
 			parsedPalettes.push(data)
 			localStorage.setItem('savedPalettes', JSON.stringify(parsedPalettes))
-			isPaletteSaved = true
+			isSaved = true
 		}
 	} else {
 		localStorage.setItem('savedPalettes', JSON.stringify([data]))
-		isPaletteSaved = true
+		isSaved = true
 	}
 
-	return isPaletteSaved
+	return isSaved
 }

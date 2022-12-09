@@ -64,7 +64,6 @@ const ExportColorModal = ({ colorsPalette, generateColorFor }: ExportColorModalP
 		if (colorFormat === 'figma') {
 			const element = FigmaSvgPalette({ colors: colorsPalette })
 			const svg = ReactDOMServer.renderToStaticMarkup(element)
-			console.log(svg)
 			copyToClipboard(svg)
 		} else {
 			copyToClipboard(colorValue)

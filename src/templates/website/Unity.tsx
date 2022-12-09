@@ -2,20 +2,16 @@ import { colord } from 'colord'
 import { useMemo } from 'react'
 
 interface Props {
-	colors: string[]
+	palette: string[]
 }
 
-const UnityTemplate = ({ colors }: Props) => {
-	const colorOne = colors[0]
-	const colorTwo = colors[1]
-	const colorThree = colors[2]
+const UnityTemplate = ({ palette }: Props) => {
+	const colorOne = palette[0]
+	const colorTwo = palette[1]
+	const colorThree = palette[2]
 
 	const colorOneText = useMemo(() => (colord(colorOne).isDark() ? '#fff' : '#000'), [colorOne])
 	const colorTwoText = useMemo(() => (colord(colorTwo).isDark() ? '#fff' : '#000'), [colorTwo])
-	const colorThreeText = useMemo(
-		() => (colord(colorThree).isDark() ? '#fff' : '#000'),
-		[colorThree]
-	)
 
 	return (
 		<svg

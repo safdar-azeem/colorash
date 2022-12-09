@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { generateRandomColor } from '../../utils/generateRandomColor'
-import { initialSolidColorsState, SolidColorsContext } from './Context'
+import { initialSolidColors, SolidColorsActionsType, SolidColorsContext } from './Context'
 
 export const SolidColorsProvider = ({ children }: { children: React.ReactNode }) => {
 	const [colorsPalette, setColorsPalette] = useState<any[]>(generateRandomColor(50, []))
-	const [bgColor, setBgColor] = useState(initialSolidColorsState.bgColor)
+	const [bgColor, setBgColor] = useState(initialSolidColors.bgColor)
 
-	const handleBgColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { value } = e.target
-		setBgColor(value)
+	const actions: SolidColorsActionsType = {
+		handleBgColorChange: (color: string) => setBgColor(color),
 	}
 
 	const infiniteScroll = () => {
@@ -18,23 +17,23 @@ export const SolidColorsProvider = ({ children }: { children: React.ReactNode })
 	}
 
 	useEffect(() => {
+		window.addEventListener('scroll', infiniteScroll)
+		return () => window.removeEventListener('scroll', infiniteScroll)
+	}, [])
+
+	useEffect(() => {
 		document.body.style.backgroundColor = bgColor
 		return () => {
 			document.body.style.backgroundColor = ''
 		}
 	}, [bgColor])
 
-	useEffect(() => {
-		window.addEventListener('scroll', infiniteScroll)
-		return () => window.removeEventListener('scroll', infiniteScroll)
-	}, [])
-
 	return (
 		<SolidColorsContext.Provider
 			value={{
 				colorsPalette,
 				bgColor,
-				handleBgColorChange,
+				actions,
 			}}>
 			{children}
 		</SolidColorsContext.Provider>

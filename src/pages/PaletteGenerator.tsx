@@ -11,24 +11,14 @@ import InputGroup from '../layouts/InputGroup'
 const ExportColorModal = lazy(() => import('../components/reusable/modals/ExportColorModal'))
 
 const PaletteGenerator = () => {
-	const {
-		currentFrame,
-		currentFrameIndex,
-		colors,
-		template,
-		totalTemplates,
-		handleFrameIndexChange,
-		handleColorChange,
-		refreshColors,
-		handleFrameChange,
-		handleSave,
-		isAlreadySaved,
-	} = useContext(PaletteGeneratorContext)
+	const { palette, frame, frameIndex, template, totalTemplates, isPaletteAlreadySaved, actions } =
+		useContext(PaletteGeneratorContext)
 
 	return (
 		<div>
 			<AppHeader>
-				<InputGroup minWidth={colors.length <= 2 ? (colors.length + 1) * 90 : colors.length * 75}>
+				<InputGroup
+					minWidth={palette.length <= 2 ? (palette.length + 1) * 90 : palette.length * 75}>
 					<div className='w-full'>
 						<label className='label'>Color Palette</label>
 						<section className='border-base-300 border flex justify-between items-center px-3 gap-x-3 rounded-md py-2 h-[45px] text-gray-200'>
@@ -37,10 +27,10 @@ const PaletteGenerator = () => {
 								size='sm'
 								leftIcon='charm:refresh'
 								iconColor='text-gray-600'
-								onClick={refreshColors}
+								onClick={actions.handleRefreshPalette}
 								iconSize='text-fs-5'
 							/>
-							{colors.map((color: string, index: number) => (
+							{palette.map((color: string, index: number) => (
 								<ColorPicker
 									key={index}
 									color={color}
@@ -51,7 +41,7 @@ const PaletteGenerator = () => {
 									hue
 									withRandomBtn
 									direction='none'
-									onChange={(color) => handleColorChange(color, index)}
+									onChange={(color) => actions.handleChangePaletteColor(index, color)}
 								/>
 							))}
 							<Button
@@ -64,9 +54,9 @@ const PaletteGenerator = () => {
 							<Button
 								variant='ghost'
 								size='sm'
-								leftIcon={isAlreadySaved ? 'mdi:cards-heart' : 'mdi:cards-heart-outline'}
+								leftIcon={isPaletteAlreadySaved ? 'mdi:cards-heart' : 'mdi:cards-heart-outline'}
 								iconColor='text-gray-600'
-								onClick={handleSave}
+								onClick={actions.handleSavePalette}
 							/>
 						</section>
 					</div>
@@ -75,8 +65,8 @@ const PaletteGenerator = () => {
 						withIcon
 						variant='outline'
 						options={frameOptions}
-						value={currentFrame}
-						onChange={handleFrameChange as any}
+						value={frame}
+						onChange={actions.handleChangeFrame as any}
 						minButtonWidth={200}
 					/>
 				</InputGroup>
@@ -88,30 +78,30 @@ const PaletteGenerator = () => {
 						iconSize='xl'
 						size='sm'
 						isCircle
-						disabled={currentFrameIndex === 0}
-						onClick={() => handleFrameIndexChange(currentFrameIndex - 1)}
+						disabled={frameIndex === 0}
+						onClick={() => actions.handleChangeFrameIndex('decrement')}
 					/>
 					<Button
 						leftIcon='material-symbols:chevron-right-rounded'
 						iconSize='xl'
 						size='sm'
 						isCircle
-						disabled={currentFrameIndex === totalTemplates - 1}
-						onClick={() => handleFrameIndexChange(currentFrameIndex + 1)}
+						disabled={frameIndex === totalTemplates}
+						onClick={() => actions.handleChangeFrameIndex('increment')}
 					/>
 				</section>
 				<AppContent
 					className='grid fadeIn mt-3 resize overflow-auto place-items-center px-8 py-10  border border-gray-100 rounded-[30px]'
 					style={{
-						backgroundColor: template.backDropColor,
+						backgroundColor: template?.background,
 					}}>
 					{template.component({
-						colors,
+						palette,
 					})}
 				</AppContent>
 			</AppContent>
 			<ExportColorModal
-				colorsPalette={colors}
+				colorsPalette={palette}
 				generateColorFor='palette'
 			/>
 		</div>

@@ -1,24 +1,19 @@
 import { colord } from 'colord'
 import React, { useMemo, useState } from 'react'
-import { ContrastCheckerContext, initialContrastCheckerState } from './Context'
+import { ContrastActionsType, ContrastCheckerContext, initialContrast } from './Context'
 
 export const ContrastCheckerProvider = ({ children }: { children: React.ReactNode }) => {
-	const [color, setColor] = useState<string>(initialContrastCheckerState.color)
-	const [bgColor, setBgColor] = useState(initialContrastCheckerState.bgColor)
-
-	const handleBgColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { value } = e.target
-		setBgColor(value)
-	}
-
-	const handleColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { value } = e.target
-		setColor(value)
-	}
+	const [color, setColor] = useState<string>(initialContrast.color)
+	const [bgColor, setBgColor] = useState(initialContrast.bgColor)
 
 	const largeTextColor = useMemo(() => colord(color).toHex(), [color])
 	const normalTextColor = useMemo(() => colord(color).lighten(0.2).toHex(), [color])
 	const iconTextColor = useMemo(() => colord(color).lighten(0.3).toHex(), [color])
+
+	const actions: ContrastActionsType = {
+		handleBgColorChange: (color: string) => setBgColor(color),
+		handleColorChange: (color: string) => setColor(color),
+	}
 
 	return (
 		<ContrastCheckerContext.Provider
@@ -28,8 +23,7 @@ export const ContrastCheckerProvider = ({ children }: { children: React.ReactNod
 				largeTextColor,
 				normalTextColor,
 				iconTextColor,
-				handleBgColorChange,
-				handleColorChange,
+				actions,
 			}}>
 			{children}
 		</ContrastCheckerContext.Provider>

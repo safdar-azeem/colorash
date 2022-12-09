@@ -2,11 +2,11 @@ import { colord } from 'colord'
 import { useMemo } from 'react'
 
 interface Prop {
-	colors: string[]
+	palette: string[]
 }
 
-const Folio = ({ colors }: Prop) => {
-	const colorOne = colors[0]
+const Folio = ({ palette }: Prop) => {
+	const colorOne = palette[0]
 	const colorOneText = useMemo(() => (colord(colorOne).isDark() ? '#fff' : '#000'), [colorOne])
 	return (
 		<svg

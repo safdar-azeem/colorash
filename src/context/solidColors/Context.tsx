@@ -1,15 +1,19 @@
 import { createContext } from 'react'
 
-interface SolidColorsContextProps {
+export type SolidColorsActionsType = {
+	handleBgColorChange: (color: string) => void
+}
+
+interface SolidColorsContextType {
 	colorsPalette: any[]
 	bgColor: string
-	handleBgColorChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+	actions: SolidColorsActionsType
 }
 
-export const initialSolidColorsState: SolidColorsContextProps = {
+export const initialSolidColors: SolidColorsContextType = {
 	colorsPalette: [],
 	bgColor: '#FCFCFD',
-	handleBgColorChange: () => {},
+	actions: { handleBgColorChange: () => {} },
 }
 
-export const SolidColorsContext = createContext<SolidColorsContextProps>(initialSolidColorsState)
+export const SolidColorsContext = createContext<SolidColorsContextType>(initialSolidColors)

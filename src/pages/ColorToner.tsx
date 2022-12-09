@@ -13,18 +13,8 @@ const ExportColorModal = lazy(() => import('../components/reusable/modals/Export
 const Dropdown = lazy(() => import('../components/reusable/forms/Dropdown'))
 
 const ColorToner = () => {
-	const {
-		color,
-		bgColor,
-		quantity,
-		colorMode,
-		colorsPalette,
-		handleBgColorChange,
-		handleColorChange,
-		handleDropdownChange,
-		handleQuantityChange,
-		handleRandom,
-	} = useContext(ColorTonerContext)
+	const { color, bgColor, quantity, colorMode, colorsPalette, actions } =
+		useContext(ColorTonerContext)
 
 	return (
 		<>
@@ -33,7 +23,7 @@ const ColorToner = () => {
 					<Input
 						label='Background'
 						value={bgColor}
-						onChange={handleBgColorChange}
+						onChange={(e) => actions.handleBgColorChange(e.target.value)}
 						leftSlot={
 							<ColorPicker
 								color={bgColor}
@@ -41,7 +31,7 @@ const ColorToner = () => {
 								saturation
 								box
 								hue
-								onChange={(color) => handleBgColorChange({ target: { value: color } } as any)}
+								onChange={actions.handleBgColorChange}
 								size='xs'
 								direction='none'
 							/>
@@ -50,7 +40,7 @@ const ColorToner = () => {
 					<Input
 						label='Colour'
 						value={color}
-						onChange={handleColorChange}
+						onChange={(e) => actions.handleColorChange(e.target.value)}
 						leftSlot={
 							<ColorPicker
 								color={color}
@@ -58,7 +48,7 @@ const ColorToner = () => {
 								saturation
 								box
 								hue
-								onChange={(color) => handleColorChange({ target: { value: color } } as any)}
+								onChange={actions.handleColorChange}
 								size='xs'
 								direction='none'
 							/>
@@ -68,7 +58,7 @@ const ColorToner = () => {
 								leftIcon='charm:refresh'
 								variant='ghost'
 								size='sm'
-								onClick={handleRandom}
+								onClick={actions.handleRefreshColor}
 							/>
 						}
 					/>
@@ -78,7 +68,7 @@ const ColorToner = () => {
 						variant='outline'
 						options={colorModeOptions}
 						value={colorMode}
-						onChange={handleDropdownChange}
+						onChange={actions.handleDropdownChange}
 						minButtonWidth='100%'
 					/>
 					<Input
@@ -87,7 +77,7 @@ const ColorToner = () => {
 						value={quantity}
 						min={2}
 						max={100}
-						onChange={handleQuantityChange}
+						onChange={actions.handleQuantityChange}
 					/>
 					<Button
 						leftIcon='charm:download'

@@ -1,25 +1,29 @@
 import { createContext } from 'react'
 
-interface ContrastCheckerContextProps {
+export type ContrastActionsType = {
+	handleBgColorChange: (color: string) => void
+	handleColorChange: (color: string) => void
+}
+
+type ContrastContextType = {
 	bgColor: string
 	color: string
 	largeTextColor: string
 	normalTextColor: string
 	iconTextColor: string
-	handleBgColorChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-	handleColorChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+	actions: ContrastActionsType
 }
 
-export const initialContrastCheckerState: ContrastCheckerContextProps = {
+export const initialContrast: ContrastContextType = {
 	bgColor: '#F1EEE5',
 	color: '#000000',
 	largeTextColor: '#000000',
 	normalTextColor: '#000000',
 	iconTextColor: '#000000',
-	handleBgColorChange: () => {},
-	handleColorChange: () => {},
+	actions: {
+		handleBgColorChange: () => {},
+		handleColorChange: () => {},
+	},
 }
 
-export const ContrastCheckerContext = createContext<ContrastCheckerContextProps>(
-	initialContrastCheckerState
-)
+export const ContrastCheckerContext = createContext<ContrastContextType>(initialContrast)
