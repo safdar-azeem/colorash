@@ -124,7 +124,11 @@ const Dropdown = ({
 					backgroundColor: 'transparent',
 				}}>
 				{button ? (
-					<span onClick={handleToggle}>{button}</span>
+					<span
+						className='contents'
+						onClick={handleToggle}>
+						{button}
+					</span>
 				) : (
 					<label
 						className={`btn btn-${buttonSize} btn-${variant} gap-3 justify-between `}

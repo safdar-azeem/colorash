@@ -40,6 +40,7 @@ const PaletteGenerator = () => {
 									box
 									hue
 									withRandomBtn
+									withInput
 									direction='none'
 									onChange={(color) => actions.handleChangePaletteColor(index, color)}
 								/>

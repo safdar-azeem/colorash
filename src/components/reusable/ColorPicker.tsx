@@ -5,6 +5,7 @@ import { TRadius, TSize } from '../../types/tailwind.types'
 import { generateRandomColor } from '../../utils/generateRandomColor'
 import Button from './forms/Button'
 import Dropdown from './forms/Dropdown'
+import Input from './forms/Input'
 
 interface ColorPickerProps {
 	color: string
@@ -16,6 +17,7 @@ interface ColorPickerProps {
 	value?: boolean
 	alpha?: boolean
 	withRandomBtn?: boolean
+	withInput?: boolean
 	onChange?: (color: string) => void
 	onClose?: () => void
 	onOpen?: () => void
@@ -30,6 +32,7 @@ const ColorPicker = ({
 	size = 'xs',
 	direction = 'right',
 	withRandomBtn = false,
+	withInput = false,
 	box,
 	hue,
 	saturation,
@@ -43,8 +46,11 @@ const ColorPicker = ({
 	var colorPicker = useRef(null)
 	const [isOpen, setIsOpen] = useState(false)
 	const [colorValue, setColorValue] = useState(color || '#e5efee')
+	const [isValueValid, setIsValueValid] = useState(true)
 
 	useMemo(() => {
+		const isValid = colord(colorValue).isValid()
+		setIsValueValid(isValid)
 		onChange && onChange(colorValue)
 	}, [colorValue])
 
@@ -117,32 +123,51 @@ const ColorPicker = ({
 					<label onClick={() => setIsOpen(!isOpen)}>{button}</label>
 				) : (
 					<button
-						className={`btn px-0 mt-1 box ${size} rounded-${rounded} `}
+						className={`btn p-0 h-max w-max px-0 mt-1 box ${size} rounded-${rounded} `}
 						style={{ backgroundColor: color }}
 						onClick={() => setIsOpen(!isOpen)}></button>
 				)
 			}
 			children={
-				<div className='shadow-lg p-3 border border-gray-100 bg-white w-max rounded-xl mt-2 flex flex-col gap-y-4'>
+				<div
+					className={`shadow-lg p-3 border border-gray-100 bg-white w-max rounded-xl mt-2 flex flex-col ${
+						withInput || withRandomBtn ? 'gap-y-4' : ''
+					}`}>
 					<div
 						id='picker'
 						ref={ref}
 					/>
-					{withRandomBtn && (
-						<Button
-							fullWidth
-							size='sm'
-							leftIcon='charm:refresh'
-							iconColor='text-gray-600'
-							iconSize='text-fs-5'
-							onClick={() => {
-								onChange && onChange(generateRandomColor(1)[0])
-								if (colorPicker.current)
-									// @ts-ignore
-									colorPicker.current.color.hexString = generateRandomColor(1)[0]
-							}}
-						/>
-					)}
+					<div className={`${withRandomBtn && withInput && 'flex'}   gap-x-2 w-[180px]`}>
+						{withRandomBtn && (
+							<Button
+								size='sm'
+								leftIcon='charm:refresh'
+								iconColor='text-gray-600'
+								fullWidth={!withInput}
+								iconSize='text-fs-5'
+								onClick={() => {
+									onChange && onChange(generateRandomColor(1)[0])
+									if (colorPicker.current)
+										// @ts-ignore
+										colorPicker.current.color.hexString = generateRandomColor(1)[0]
+								}}
+							/>
+						)}
+						{withInput && (
+							<Input
+								isError={!isValueValid}
+								value={colorValue}
+								className='flex-1'
+								size='sm'
+								onChange={(e) => {
+									setColorValue(e.target.value)
+									if (colord(e.target.value).isValid() && colorPicker.current)
+										// @ts-ignore
+										colorPicker.current.color.hexString = color
+								}}
+							/>
+						)}
+					</div>
 				</div>
 			}
 			directionY='bottom'

@@ -8,7 +8,8 @@ interface InputProps {
 	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 	type?: string
 	disabled?: boolean
-	error?: string
+	isError?: boolean
+	errorMessage?: string
 	className?: string
 	size?: TSize
 	leftSlot?: React.ReactNode
@@ -26,7 +27,8 @@ const Input = ({
 	onChange,
 	type,
 	disabled,
-	error,
+	isError,
+	errorMessage,
 	className,
 	size = 'md',
 	leftSlot,
@@ -54,8 +56,8 @@ const Input = ({
 			<div
 				className={`flex items-center input-${variant} px-0 py-0 input
                 input-${size}
-                ${isFocused && 'border border-primary'} ${className}
-                    ${error && 'input-error'}
+                ${!isError && isFocused && 'border border-primary'} ${className}
+                    ${isError && 'input-error'}
                 `}
 				onFocus={handleFocus}
 				onBlur={handleBlur}>
@@ -75,7 +77,7 @@ const Input = ({
 				/>
 				{rightSlot && <div className='px-2'>{rightSlot}</div>}
 			</div>
-			{error && <p className='text-error mt-1'>{error}</p>}
+			{errorMessage && <p className='text-error mt-1'>{errorMessage}</p>}
 		</div>
 	)
 }
