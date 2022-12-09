@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { AppRoutes } from '../../constants/routes.constants'
-import templates from '../../templates'
+import templates, { TemplateType } from '../../templates'
 import { Palette } from '../../utils/savePalettes'
 import Button from '../reusable/forms/Button'
 
@@ -12,13 +12,16 @@ interface Props {
 }
 
 const CollectionItem = ({ collection, handleRemovePalette, setSelectedPalette }: Props) => {
-	const template = useMemo(() => templates[collection.frame][collection.index], [collection])
+	const template: TemplateType = useMemo(
+		() => templates[collection.frame][collection.index],
+		[collection]
+	)
 	return (
 		<div className='h-full'>
 			<div className='gap-3 grid place-items-center relative z-0 h-full fadeIn'>
 				<Link
 					style={{
-						backgroundColor: template.backDropColor,
+						backgroundColor: template.background,
 					}}
 					className='w-full p-4 rounded-xl h-full grid place-items-center'
 					to={`${AppRoutes.PaletteGenerator}/${collection.frame}/${
