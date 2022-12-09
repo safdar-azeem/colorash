@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { AppRoutes } from '../../constants/routes.constants'
 import frameOptions, { Frame } from '../../jsons/frameOpetions.json'
@@ -8,8 +8,10 @@ import { isPaletteSaved, savePalette } from '../../utils/savePalettes'
 import { initialContext, PaletteActionsType, PaletteGeneratorContext } from './Context'
 
 export const PaletteGeneratorProvider = ({ children }: { children: React.ReactNode }) => {
+	const [isPaletteAlreadySaved, setIsPaletteAlreadySaved] = useState<boolean>(false)
 	const { '*': params } = useParams()
-	const { _Frame, _FrameIndex, _PaletteColors, _IsPaletteAlreadySaved } = useMemo((): any => {
+
+	const { _Frame, _FrameIndex, _PaletteColors } = useMemo((): any => {
 		const [frame, frameIndex, colors] =
 			params?.split('/') ||
 			([initialContext.frame, initialContext.frameIndex, initialContext.palette] as any)
@@ -23,31 +25,32 @@ export const PaletteGeneratorProvider = ({ children }: { children: React.ReactNo
 				? colors.split('-').map((color: string) => `#${color}`)
 				: initialContext.palette
 
-		const _IsPaletteAlreadySaved = isPaletteSaved({
-			frame: _Frame,
-			index: _FrameIndex,
-			colors: _PaletteColors,
-		} as any)
+		setIsPaletteAlreadySaved(
+			isPaletteSaved({
+				frame: _Frame,
+				index: _FrameIndex,
+				colors: _PaletteColors,
+			} as any)
+		)
 
 		return {
 			_Frame,
 			_FrameIndex,
 			_PaletteColors,
-			_IsPaletteAlreadySaved,
 		}
 	}, [])
 
 	const [frame, setFrame] = useState<Frame>(_Frame)
 	const [frameIndex, setFrameIndex] = useState<number>(_FrameIndex)
 	const [palette, setPalette] = useState<string[]>(_PaletteColors)
-	const [isPaletteAlreadySaved, setIsPaletteAlreadySaved] =
-		useState<boolean>(_IsPaletteAlreadySaved)
+
 	const totalTemplates = useMemo(() => Object.keys(templates[frame]).length - 1, [frame])
 	const template: TemplateType = useMemo(() => templates[frame][frameIndex], [frame, frameIndex])
 	const navigate = useNavigate()
 
 	const actions: PaletteActionsType = {
 		handleChangePaletteColor: (index: number, color: string) => {
+			setIsPaletteAlreadySaved(false)
 			const newPalette = [...palette]
 			newPalette[index] = color
 			setPalette(newPalette)
@@ -70,15 +73,13 @@ export const PaletteGeneratorProvider = ({ children }: { children: React.ReactNo
 				setPalette(templates[frame][index].colors)
 			}
 		},
+		handleRefreshPalette: () => {
+			setPalette(generateRandomColor(palette.length, palette))
+			setIsPaletteAlreadySaved(false)
+		},
 		handleSavePalette: () =>
 			setIsPaletteAlreadySaved(savePalette({ frame, index: frameIndex, colors: palette })),
-		handleRefreshPalette: () => setPalette(generateRandomColor(palette.length, palette)),
 	}
-
-	useEffect(() => {
-		actions.handleInitializeFromURL()
-		return () => {}
-	}, [frame, frameIndex, palette])
 
 	return (
 		<PaletteGeneratorContext.Provider

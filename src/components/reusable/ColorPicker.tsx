@@ -1,6 +1,6 @@
 import iro from '@jaames/iro'
 import { colord } from 'colord'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { TRadius, TSize } from '../../types/tailwind.types'
 import { generateRandomColor } from '../../utils/generateRandomColor'
 import Button from './forms/Button'
@@ -48,11 +48,15 @@ const ColorPicker = ({
 	const [colorValue, setColorValue] = useState(color || '#e5efee')
 	const [isValueValid, setIsValueValid] = useState(true)
 
-	useMemo(() => {
+	const handleColorChange = (color: string, fromInput = false) => {
 		const isValid = colord(colorValue).isValid()
 		setIsValueValid(isValid)
-		onChange && onChange(colorValue)
-	}, [colorValue])
+		setColorValue(color)
+		onChange && onChange(color)
+		if (isValid && fromInput && colorPicker.current)
+			// @ts-ignore
+			colorPicker.current.color.hexString = color
+	}
 
 	useEffect(() => {
 		if (!ref.current) return
@@ -109,7 +113,7 @@ const ColorPicker = ({
 		cp.on('color:change', (color: any) => {
 			const colorFormat = color.$.a !== 1 ? 'hsla' : 'hex'
 			const colorValue = colorFormat === 'hsla' ? color.hslaString : color.hexString
-			setColorValue(colord(colorValue).toHex())
+			handleColorChange(colord(colorValue).toHex())
 		})
 	}, [isOpen])
 
@@ -145,12 +149,7 @@ const ColorPicker = ({
 								iconColor='text-gray-600'
 								fullWidth={!withInput}
 								iconSize='text-fs-5'
-								onClick={() => {
-									onChange && onChange(generateRandomColor(1)[0])
-									if (colorPicker.current)
-										// @ts-ignore
-										colorPicker.current.color.hexString = generateRandomColor(1)[0]
-								}}
+								onClick={() => handleColorChange(generateRandomColor(1)[0], true)}
 							/>
 						)}
 						{withInput && (
@@ -159,12 +158,7 @@ const ColorPicker = ({
 								value={colorValue}
 								className='flex-1'
 								size='sm'
-								onChange={(e) => {
-									setColorValue(e.target.value)
-									if (colord(e.target.value).isValid() && colorPicker.current)
-										// @ts-ignore
-										colorPicker.current.color.hexString = color
-								}}
+								onChange={(e) => handleColorChange(e.target.value, true)}
 							/>
 						)}
 					</div>
