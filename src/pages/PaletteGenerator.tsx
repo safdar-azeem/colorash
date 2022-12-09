@@ -92,7 +92,7 @@ const PaletteGenerator = () => {
 					/>
 				</section>
 				<AppContent
-					className='grid fadeIn mt-3 resize overflow-auto place-items-center px-8 py-10  border border-gray-100 rounded-[30px]'
+					className='grid fadeIn mt-3 resize overflow-auto place-items-center sm:px-8 sm:py-10 p-4  border border-gray-100 rounded-[30px]'
 					style={{
 						backgroundColor: template?.background,
 					}}>
