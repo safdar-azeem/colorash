@@ -9,7 +9,7 @@ const ColorList = lazy(() => import('../components/reusable/ColorList'))
 const ColorPicker = lazy(() => import('../components/reusable/ColorPicker'))
 
 const SolidColors = () => {
-	const { colorsPalette, bgColor, handleBgColorChange } = useContext(SolidColorsContext)
+	const { colorsPalette, bgColor, actions } = useContext(SolidColorsContext)
 	return (
 		<>
 			<AppHeader>
@@ -17,7 +17,7 @@ const SolidColors = () => {
 					<Input
 						label='Background'
 						value={bgColor}
-						onChange={handleBgColorChange}
+						onChange={(e) => actions.handleBgColorChange(e.target.value)}
 						rightSlot={
 							<ColorPicker
 								color={bgColor}
@@ -27,7 +27,7 @@ const SolidColors = () => {
 								hue
 								size='xs'
 								direction='left'
-								onChange={(color) => handleBgColorChange({ target: { value: color } } as any)}
+								onChange={actions.handleBgColorChange}
 							/>
 						}
 					/>
